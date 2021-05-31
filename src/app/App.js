@@ -1,5 +1,6 @@
+import React, { useState, useEffect } from 'react';
+import './App.css';
 import '@fake-db';
-import FuseAuthorization from '@fuse/core/FuseAuthorization';
 import FuseLayout from '@fuse/core/FuseLayout';
 import FuseTheme from '@fuse/core/FuseTheme';
 import history from '@history';
@@ -12,10 +13,25 @@ import Provider from 'react-redux/es/components/Provider';
 import { Router } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 import DateFnsUtils from '@date-io/date-fns';
+// Amplify
+import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn, AmplifySignOut } from '@aws-amplify/ui-react';
+import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
+import PubSub from '@aws-amplify/pubsub';
+import Amplify, { I18n } from '@aws-amplify/core';
+import awsmobile from '../aws-exports';
+// 翻訳
+import { vocabularies } from './dictionary';
+// aaaa
 import AppContext from './AppContext';
-import { Auth } from './auth';
 import routes from './fuse-configs/routesConfig';
 import store from './store';
+
+// Amplifyの設定
+Amplify.configure(awsmobile);
+PubSub.configure(awsmobile);
+
+I18n.putVocabularies(vocabularies);
+I18n.setLanguage('ja');
 
 const jss = create({
 	...jssPreset(),
@@ -26,6 +42,25 @@ const jss = create({
 const generateClassName = createGenerateClassName({ disableGlobal: true });
 
 const App = () => {
+	const [authState, setAuthState] = useState();
+	const [user, setUser] = useState();
+
+	useEffect(() => {
+		return onAuthUIStateChange((nextAuthState, authData) => {
+			// console.log(nextAuthState, authData)
+			setAuthState(nextAuthState);
+			setUser(authData);
+			// ユーザーグループによってサイドバーを変更
+			if (authData) {
+				if (authData.signInUserSession) {
+					const userGroup = authData.signInUserSession.accessToken.payload['cognito:groups'];
+					console.log(userGroup);
+				}
+			}
+		});
+	}, []);
+
+	// 認証ステータスが、サインイン状態でユーザー情報がある場合
 	return (
 		<AppContext.Provider
 			value={{
@@ -35,26 +70,47 @@ const App = () => {
 			<StylesProvider jss={jss} generateClassName={generateClassName}>
 				<Provider store={store}>
 					<MuiPickersUtilsProvider utils={DateFnsUtils}>
-						<Auth>
-							<Router history={history}>
-								<FuseAuthorization>
-									<FuseTheme>
-										<SnackbarProvider
-											maxSnack={5}
-											anchorOrigin={{
-												vertical: 'bottom',
-												horizontal: 'right'
-											}}
-											classes={{
-												containerRoot: 'bottom-0 right-0 mb-52 md:mb-68 mr-8 lg:mr-80 z-99'
-											}}
-										>
-											<FuseLayout />
-										</SnackbarProvider>
-									</FuseTheme>
-								</FuseAuthorization>
-							</Router>
-						</Auth>
+						<Router history={history}>
+							<FuseTheme>
+								<SnackbarProvider
+									maxSnack={5}
+									anchorOrigin={{
+										vertical: 'bottom',
+										horizontal: 'right'
+									}}
+									classes={{
+										containerRoot: 'bottom-0 right-0 mb-52 md:mb-68 mr-8 lg:mr-80 z-99'
+									}}
+								>
+									{/* 認証チェック */}
+									{authState === AuthState.SignedIn && user ? (
+										<FuseLayout />
+									) : (
+										<AmplifyAuthenticator slot="amplify-authenticator" usernameAlias="email">
+											<AmplifySignUp
+												slot="sign-up"
+												usernameAlias="email"
+												formFields={[
+													{
+														type: 'email',
+														label: 'Eメールアドレス *',
+														placeholder: 'Eメール',
+														required: true
+													},
+													{
+														type: 'password',
+														label: 'パスワード *',
+														placeholder: 'パスワード',
+														required: true
+													}
+												]}
+											/>
+											<AmplifySignIn slot="sign-in" usernameAlias="email" />
+										</AmplifyAuthenticator>
+									)}
+								</SnackbarProvider>
+							</FuseTheme>
+						</Router>
 					</MuiPickersUtilsProvider>
 				</Provider>
 			</StylesProvider>

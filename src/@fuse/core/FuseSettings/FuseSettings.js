@@ -16,7 +16,6 @@ import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import { useCallback, useMemo, memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserSettings } from 'app/auth/store/userSlice';
 import { setDefaultSettings } from 'app/store/fuse/settingsSlice';
 
 const useStyles = makeStyles(theme => ({
@@ -51,7 +50,6 @@ const useStyles = makeStyles(theme => ({
 
 function FuseSettings(props) {
 	const dispatch = useDispatch();
-	const user = useSelector(({ auth }) => auth.user);
 	const themes = useSelector(({ fuse }) => fuse.settings.themes);
 	const settings = useSelector(({ fuse }) => fuse.settings.current);
 	const { reset, watch, control } = useForm({ mode: 'onChange', defaultValues: settings });
@@ -64,11 +62,7 @@ function FuseSettings(props) {
 	const classes = useStyles(props);
 
 	const handleUpdate = useDebounce(newSettings => {
-		if (user.role === 'guest') {
-			dispatch(setDefaultSettings(newSettings));
-		} else {
-			dispatch(updateUserSettings(newSettings));
-		}
+		dispatch(setDefaultSettings(newSettings));
 	}, 300);
 
 	useEffect(() => {
@@ -97,7 +91,7 @@ function FuseSettings(props) {
 			}
 			handleUpdate(newSettings);
 		}
-	}, [dispatch, form, formChanged, handleUpdate, prevForm, prevSettings, reset, settings, settingsChanged, user]);
+	}, [dispatch, form, formChanged, handleUpdate, prevForm, prevSettings, reset, settings, settingsChanged]);
 
 	const ThemeSelect = ({ value, name, handleThemeChange }) => {
 		return (

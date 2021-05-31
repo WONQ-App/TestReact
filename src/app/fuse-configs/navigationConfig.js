@@ -7,27 +7,6 @@ const navigationConfig = [
 		icon: 'apps',
 		children: [
 			{
-				id: 'dashboards',
-				title: 'Dashboards',
-				translate: 'DASHBOARDS',
-				type: 'collapse',
-				icon: 'dashboard',
-				children: [
-					{
-						id: 'analytics-dashboard',
-						title: 'Analytics',
-						type: 'item',
-						url: '/apps/dashboards/analytics'
-					},
-					{
-						id: 'project-dashboard',
-						title: 'Project',
-						type: 'item',
-						url: '/apps/dashboards/project'
-					}
-				]
-			},
-			{
 				id: 'scrumboard',
 				title: 'Scrumboard',
 				translate: 'SCRUMBOARD',

@@ -3,7 +3,6 @@ import { memo } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserSettings } from 'app/auth/store/userSlice';
 import { setDefaultSettings } from 'app/store/fuse/settingsSlice';
 
 const useStyles = makeStyles(theme => ({
@@ -76,7 +75,6 @@ function SchemePreview({ theme, className, id, onSelect }) {
 
 function FuseThemeSchemes(props) {
 	const dispatch = useDispatch();
-	const user = useSelector(({ auth }) => auth.user);
 	const themes = useSelector(({ fuse }) => fuse.settings.themes);
 	const settings = useSelector(({ fuse }) => fuse.settings.current);
 
@@ -93,11 +91,7 @@ function FuseThemeSchemes(props) {
 			}
 		};
 
-		if (user.role === 'guest') {
-			dispatch(setDefaultSettings(newSettings));
-		} else {
-			dispatch(updateUserSettings(newSettings));
-		}
+		dispatch(setDefaultSettings(newSettings));
 	}
 
 	return (

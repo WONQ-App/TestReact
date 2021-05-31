@@ -1,7 +1,5 @@
-import ScrumboardAppConfig from './scrumboard/ScrumboardAppConfig';
-import AnalyticsDashboardAppConfig from './dashboards/analytics/AnalyticsDashboardAppConfig';
-import ProjectDashboardAppConfig from './dashboards/project/ProjectDashboardAppConfig';
+import ContactsAppConfig from './contacts/ContactsAppConfig';
 
-const appsConfigs = [AnalyticsDashboardAppConfig, ProjectDashboardAppConfig, ScrumboardAppConfig];
+const appsConfigs = [ContactsAppConfig];
 
 export default appsConfigs;

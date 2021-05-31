@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fireinsurance-dev-181438-authRole",
+      "UnauthRoleArn": "arn:aws:iam::887579298504:role/amplify-fireinsurance-dev-181438-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::887579298504:role/amplify-fireinsurance-dev-181438-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-fireinsurance-dev-181438-deployment",
+      "UnauthRoleName": "amplify-fireinsurance-dev-181438-unauthRole",
+      "StackName": "amplify-fireinsurance-dev-181438",
+      "StackId": "arn:aws:cloudformation:us-east-1:887579298504:stack/amplify-fireinsurance-dev-181438/a2f09640-c1f0-11eb-ab44-127e1ad2bd25",
+      "AmplifyAppId": "d3s515c7dwbwxh"
+    },
+    "categories": {
+      "auth": {
+        "fireinsurance1e26ef17": {}
+      }
+    }
+  }
+}

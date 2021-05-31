@@ -16,7 +16,6 @@ import { motion } from 'framer-motion';
 import { memo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { updateUserShortcuts } from 'app/auth/store/userSlice';
 
 const useStyles = makeStyles({
 	root: {
@@ -36,7 +35,6 @@ const useStyles = makeStyles({
 
 function FuseShortcuts(props) {
 	const dispatch = useDispatch();
-	const shortcuts = useSelector(({ auth }) => auth.user.data.shortcuts);
 	const navigation = useSelector(selectFlatNavigation);
 
 	const classes = useStyles(props);
@@ -44,7 +42,6 @@ function FuseShortcuts(props) {
 	const [addMenu, setAddMenu] = useState(null);
 	const [searchText, setSearchText] = useState('');
 	const [searchResults, setSearchResults] = useState(null);
-	const shortcutItems = shortcuts ? shortcuts.map(id => navigation.find(item => item.id === id)) : [];
 
 	function addMenuClick(event) {
 		setAddMenu(event.currentTarget);
@@ -65,13 +62,6 @@ function FuseShortcuts(props) {
 		}
 		setSearchResults(null);
 	}
-
-	function toggleInShortcuts(id) {
-		let newShortcuts = [...shortcuts];
-		newShortcuts = newShortcuts.includes(id) ? newShortcuts.filter(_id => id !== _id) : [...newShortcuts, id];
-		dispatch(updateUserShortcuts(newShortcuts));
-	}
-
 	function ShortcutMenuItem({ item, onToggle }) {
 		return (
 			<Link to={item.url} className={classes.item} role="button">
@@ -84,15 +74,6 @@ function FuseShortcuts(props) {
 						)}
 					</ListItemIcon>
 					<ListItemText primary={item.title} />
-					<IconButton
-						onClick={ev => {
-							ev.preventDefault();
-							ev.stopPropagation();
-							onToggle(item.id);
-						}}
-					>
-						<Icon color="action">{shortcuts.includes(item.id) ? 'star' : 'star_border'}</Icon>
-					</IconButton>
 				</MenuItem>
 			</Link>
 		);
@@ -126,26 +107,6 @@ function FuseShortcuts(props) {
 				animate="show"
 				className={clsx('flex flex-1', props.variant === 'vertical' && 'flex-col')}
 			>
-				{shortcutItems.map(
-					_item =>
-						_item && (
-							<Link to={_item.url} key={_item.id} className={classes.item} role="button">
-								<Tooltip
-									title={_item.title}
-									placement={props.variant === 'horizontal' ? 'bottom' : 'left'}
-								>
-									<IconButton className="w-40 h-40 p-0" component={motion.div} variants={item}>
-										{_item.icon ? (
-											<Icon>{_item.icon}</Icon>
-										) : (
-											<span className="text-20 font-semibold uppercase">{_item.title[0]}</span>
-										)}
-									</IconButton>
-								</Tooltip>
-							</Link>
-						)
-				)}
-
 				<Tooltip
 					title="Click to add/remove shortcut"
 					placement={props.variant === 'horizontal' ? 'bottom' : 'left'}
@@ -195,29 +156,11 @@ function FuseShortcuts(props) {
 
 				<Divider />
 
-				{searchText.length !== 0 &&
-					searchResults &&
-					searchResults.map(_item => (
-						<ShortcutMenuItem key={_item.id} item={_item} onToggle={() => toggleInShortcuts(_item.id)} />
-					))}
-
 				{searchText.length !== 0 && searchResults.length === 0 && (
 					<Typography color="textSecondary" className="p-16 pb-8">
 						No results..
 					</Typography>
 				)}
-
-				{searchText.length === 0 &&
-					shortcutItems.map(
-						_item =>
-							_item && (
-								<ShortcutMenuItem
-									key={_item.id}
-									item={_item}
-									onToggle={() => toggleInShortcuts(_item.id)}
-								/>
-							)
-					)}
 			</Menu>
 		</div>
 	);
