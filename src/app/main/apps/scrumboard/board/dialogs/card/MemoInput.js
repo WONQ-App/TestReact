@@ -62,7 +62,6 @@ function MemoInput(props) {
                 </div>
                 <div>
                     <CardComment
-                        members={board.members}
                         onCommentAdd={memo => setValue('memo', [memo, ...cardForm.memo])}
                     />
                 </div>
@@ -76,7 +75,6 @@ function MemoInput(props) {
                         {value.length > 0 && (
                             <div className="mb-24">
                                 <div className="flex items-center mt-16">
-                                    <Typography className="font-semibold text-16 mx-8">Activity</Typography>
                                 </div>
                                 <List className="">
                                     {value.map(item => (

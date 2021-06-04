@@ -49,6 +49,18 @@ function CardActivity(props) {
 				</ListItem>
 			);
 		}
+		case 'memo': {
+			return (
+				<ListItem dense className="px-0">
+					<div className="flex items-center mx-16">
+						<Typography className="mx-8">{props.item.message}</Typography>
+						<Typography className="text-12" color="textSecondary">
+							{formatDistanceToNow(fromUnixTime(props.item.time), { addSuffix: true })}
+						</Typography>
+					</div>
+				</ListItem>
+			);
+		}
 		default: {
 			return null;
 		}
