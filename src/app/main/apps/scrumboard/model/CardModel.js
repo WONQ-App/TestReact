@@ -18,6 +18,7 @@ function CardModel(data) {
 		checklists: [],
 		checkItems: 0,
 		checkItemsChecked: 0,
+		memo: [],
 		comments: [],
 		activities: [],
 		due: '',

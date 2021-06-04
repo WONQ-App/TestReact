@@ -169,6 +169,29 @@ const scrumboardDB = {
 							]
 						}
 					],
+					memo: [
+						{
+							id: 1,
+							type: 'memo',
+							idMember: '56027c1930450d8bf7b10758',
+							message: 'We should be able to add date-fns without any problems',
+							time: getUnixTime(sub(new Date(), { minutes: 10 }))
+						},
+						{
+							id: 2,
+							type: 'memo',
+							idMember: '36027j1930450d8bf7b10158',
+							message: 'I added a link for a page that might help us deciding the colors',
+							time:getUnixTime(sub(new Date(), { minutes: 20 }))
+						},
+						{
+							id: 3,
+							type: 'memo',
+							idMember: '36027j1930450d8bf7b10158',
+							message: 'attached a link',
+							time: getUnixTime(sub(new Date(), { minutes: 45 }))
+						}
+					],
 					activities: [
 						{
 							id: 1,

@@ -6,7 +6,11 @@ import TextField from '@material-ui/core/TextField';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
+import CardComment from './comment/CardComment';
 import _ from '@lodash';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import CardActivity from './activity/CardActivity';
 import { closeCardDialog, removeCard, updateCard } from '../../../store/cardSlice';
 
 const defaultValues = {
@@ -27,7 +31,7 @@ function MemoInput(props) {
 
 
     const [formOpen, setFormOpen] = useState(false);
-    const { control, formState, watch, handleSubmit } = useForm({
+    const { control, formState, watch, setValue  } = useForm({
         mode: 'onChange',
         defaultValues: card
     });
@@ -45,18 +49,43 @@ function MemoInput(props) {
         const newCard = { ...card, ...cardForm };
         console.log(newCard, 'ss')
         console.log(cardForm, 'sss')
-        if (!_.isEqual(newCard.description, card.description)) {
+        if (!_.isEqual(newCard.memo, card.memo)) {
             updateCardData(board.id, newCard);
         }
     }, [board.id, card, cardForm, updateCardData]);
 
     return (
         <div className="w-full mb-24">
+            <div className="mb-24">
+                <div className="flex items-center mt-16 mb-12">
+                    <Typography className="font-semibold text-16 mx-8">メモ</Typography>
+                </div>
+                <div>
+                    <CardComment
+                        members={board.members}
+                        onCommentAdd={memo => setValue('memo', [memo, ...cardForm.memo])}
+                    />
+                </div>
+            </div>
             <Controller
-                name="description"
+                name="memo"
                 control={control}
-                render={({ field }) => (
-                    <TextField {...field} label="メモ" multiline rows="12" variant="outlined" fullWidth />
+                defaultValue={[]}
+                render={({ field: { onChange, value } }) => (
+                    <div>
+                        {value.length > 0 && (
+                            <div className="mb-24">
+                                <div className="flex items-center mt-16">
+                                    <Typography className="font-semibold text-16 mx-8">Activity</Typography>
+                                </div>
+                                <List className="">
+                                    {value.map(item => (
+                                        <CardActivity item={item} key={item.id} members={board.members} />
+                                    ))}
+                                </List>
+                            </div>
+                        )}
+                    </div>
                 )}
             />
         </div>
