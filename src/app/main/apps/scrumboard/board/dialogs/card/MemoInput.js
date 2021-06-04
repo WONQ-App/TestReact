@@ -62,6 +62,8 @@ function MemoInput(props) {
                 </div>
                 <div>
                     <CardComment
+                        members={board.members}
+                        type = 'memo'
                         onCommentAdd={memo => setValue('memo', [memo, ...cardForm.memo])}
                     />
                 </div>
