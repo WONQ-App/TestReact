@@ -8,7 +8,7 @@ import { startCase } from 'lodash';
 const scrumboardDB = {
 	boards: [
 		{
-			id: '32gfhaf2',
+			id: '32gfhaf26',
 			name: 'ACME Frontend Application',
 			uri: 'acme-frontend-application',
 			settings: {
