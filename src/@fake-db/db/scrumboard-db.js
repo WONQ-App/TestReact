@@ -96,7 +96,7 @@ const scrumboardDB = {
 				{
 					id: '1',
 					name: 'Change background colors',
-					date:['dddddd'],
+					date:['ssssss'],
 					description: '',
 					idAttachmentCover: '67027cahbe3b52ecf2dc631c',
 					idMembers: ['76027g1930450d8bf7b10958'],
@@ -578,14 +578,6 @@ const scrumboardDB = {
 					name: 'Feature',
 					class: 'bg-green text-white'
 				}
-			],
-			date: [
-				{
-					id:'11',
-					name:'山田　太郎',
-					start :	'Thu Jun 03 2021 14:29:20 GMT+0900 (日本標準時)',
-					fin: 'Thu Jun 03 2021 14:29:20 GMT+0900 (日本標準時)'
-				}
 			]
 		},
 		{
@@ -771,16 +763,34 @@ const scrumboardDB = {
 					name: 'Feature',
 					class: 'bg-green text-white'
 				}
-			],
-			date: [
-				{
-					id:'11',
-					title:'山田　太郎',
-					start :	'Thu Jun 03 2021 14:29:20 GMT+0900 (日本標準時)',
-					end: 'Thu Jun 03 2021 14:29:20 GMT+0900 (日本標準時)'
-				}
 			]
 		}
+	],
+	date: [
+			{
+				id:'11',
+					title:'山田　太郎',
+					start :	'T2021-06-02T07:04:00.000Z',
+					end: '2021-06-3T07:04:00.000Z'
+			},
+			{
+				id:'13',
+					title:'八郎　太郎',
+					start :	'2021-06-01T07:04:53.302Z"',
+					end: '2021-06-02T07:04:00.000Z'
+			},
+			{
+				id: "000e87e7",
+				title: "Change background colors",
+				start: "2021-06-04T07:04:53.302Z",
+				end: "2021-06-11T07:04:00.000Z"
+			},
+			{
+				id: "d446fbe0",
+				title: "山田　八郎",
+				start: "2021-06-01T07:20:00.000Z",
+				end: "2021-06-02T07:20:00.000Z"
+			}
 	]
 };
 
@@ -847,19 +857,20 @@ mock.onPost('/api/scrumboard-app/card/new').reply(request => {
 mock.onPost('/api/scrumboard-app/date/new').reply(request => {
 	const { boardId, cardId, data } = JSON.parse(request.data);
 	const board = _.find(scrumboardDB.boards, { id: boardId });
-
+	const date = scrumboardDB.date
+	
+	_.assign(scrumboardDB, { date: [...date, data]})
 	_.assign(board, {
-		date: [...board.date, data],
 		cards: _.map(board.cards, _card => {
 			if (_card.id === cardId ) {
 				_.assign(_card, { date: [..._card.date, data.id] });
 			}
-			console.log(_card)
 			return _card;
 		})
 	});
-
-	return [200, board];
+	
+	console.log(date,"564")
+	return [200, board, scrumboardDB];
 });
 
 mock.onPost('/api/scrumboard-app/list/new').reply(request => {
@@ -936,3 +947,7 @@ mock.onPost('/api/scrumboard-app/card/remove/attachment').reply(request => {
 	return [200, selectedCard];
 });
 
+mock.onGet('/api/calendar-app/events').reply(config => {
+	
+	return [200, scrumboardDB.date];
+});

@@ -19,12 +19,13 @@ import { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import _ from '@lodash';
-import { removeEvent, updateEvent, addEvent, closeNewEventDialog, closeEditEventDialog } from './store/eventsSlice';
+import { removeEvent, updateEvent, addEvent, closeNewEventDialog, closeEditEventDialog } from '../scrumboard/store/dateSlice';
 
+{/*カレンダータップ時の初期値*/}
 const defaultValues = {
 	id: FuseUtils.generateGUID(),
 	title: '',
-	allDay: true,
+	allDay: false,
 	start: formatISO(new Date()),
 	end: formatISO(new Date()),
 	extendedProps: { desc: '' }
@@ -39,7 +40,7 @@ const schema = yup.object().shape({
 
 function EventDialog(props) {
 	const dispatch = useDispatch();
-	const eventDialog = useSelector(({ calendarApp }) => calendarApp.events.eventDialog);
+	const eventDialog = useSelector(({ scrumboardApp }) => scrumboardApp.date.eventDialog);
 
 	const { reset, formState, watch, control, getValues, handleSubmit } = useForm({
 		defaultValues,

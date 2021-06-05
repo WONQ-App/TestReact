@@ -1,13 +1,13 @@
 import { createEntityAdapter, createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import formatISO from 'date-fns/formatISO';
+import { newDate } from './boardSlice';
 
 export const dateFormat = 'YYYY-MM-DDTHH:mm:ss.sssZ';
 
 export const getEvents = createAsyncThunk('calendarApp/events/getEvents', async () => {
 	const response = await axios.get('/api/calendar-app/events');
 	const data = await response.data;
-	console.log(data)
 	return data;
 });
 
@@ -30,19 +30,18 @@ export const updateEvent = createAsyncThunk('calendarApp/events/updateEvent', as
 export const removeEvent = createAsyncThunk('calendarApp/events/remove-event', async (eventId, { dispatch }) => {
 	const response = await axios.post('/api/calendar-app/remove-event', { eventId });
 	const data = await response.data;
-
 	return data.id;
 });
 
 const eventsAdapter = createEntityAdapter({});
 
-// export const {
-// 	selectAll: selectEvents,
-// 	selectIds: selectEventIds,
-// 	selectById: selectEventById
-// } = eventsAdapter.getSelectors(state => state.calendarApp.events);
+export const {
+	selectAll: selectEvents,
+	selectIds: selectEventIds,
+	selectById: selectEventById
+} = eventsAdapter.getSelectors(state => state.scrumboardApp.date);
 
-const eventsSlice = createSlice({
+const dateSlice = createSlice({
 	name: 'calendarApp/events',
 	initialState: eventsAdapter.getInitialState({
 		eventDialog: {
@@ -123,6 +122,6 @@ export const {
 	closeNewEventDialog,
 	openEditEventDialog,
 	closeEditEventDialog
-} = eventsSlice.actions;
+} = dateSlice.actions;
 
-export default eventsSlice.reducer;
+export default dateSlice.reducer;
