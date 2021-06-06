@@ -119,7 +119,6 @@ export const newDate = createAsyncThunk(
 		});
 
 		const data = await response.data;
-		console.log(data)
 		return data;
 	}
 );
@@ -249,9 +248,7 @@ const boardsSlice = createSlice({
 			state.lists = action.payload;
 		},
 		[newCard.fulfilled]: (state, action) => action.payload,
-		[newDate.fulfilled]: (state, action) => {
-			state.date = action.payload;
-		},
+		[newDate.fulfilled]: (state, action) => action.payload,
 		[renameList.fulfilled]: (state, action) => {
 			const { listId, listTitle, boardColor } = action.payload;
 			state.lists = state.lists.map(list => {

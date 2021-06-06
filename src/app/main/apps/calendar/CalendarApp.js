@@ -13,9 +13,10 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import CalendarHeader from './CalendarHeader';
 import EventDialog from './EventDialog';
-import reducer from './store';
-import { selectEvents, openNewEventDialog, openEditEventDialog, updateEvent, getEvents } from './store/eventsSlice';
+import reducer from '../scrumboard/store';
+import { selectEvents, openNewEventDialog, openEditEventDialog, updateEvent, getEvents } from '../scrumboard/store/dateSlice';
 
+{/*material-uiの設定 */}
 const useStyles = makeStyles(theme => ({
 	root: {
 		'& a': {
@@ -73,14 +74,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function CalendarApp(props) {
-
-	
-	
 	const [currentDate, setCurrentDate] = useState();
 	const dispatch = useDispatch();
 	const events = useSelector(selectEvents);
 	const calendarRef = useRef();
-
 	const classes = useStyles(props);
 	const headerEl = useRef(null);
 
@@ -157,10 +154,7 @@ function CalendarApp(props) {
 						weekends
 						datesSet={handleDates}
 						select={handleDateSelect}
-						events={[
-							{id:'ddd',title:"test1",start:"2021-06-01",end:"2021-06-02"},
-							{title:"test2",start:"2021-06-03T07:26:43.230Z",end:"2021-06-07T00:01:00"}
-						   ]}
+						events={events}
 						eventContent={renderEventContent}
 						eventClick={handleEventClick}
 						eventAdd={handleEventAdd}
@@ -207,4 +201,4 @@ function renderEventContent(eventInfo) {
 	);
 }
 
-export default withReducer('calendarApp', reducer)(CalendarApp);
+export default withReducer('scrumboardApp', reducer)(CalendarApp);
