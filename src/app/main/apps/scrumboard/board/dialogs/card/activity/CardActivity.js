@@ -49,6 +49,15 @@ function CardActivity(props) {
 				</ListItem>
 			);
 		}
+		case 'memo': {
+			return (
+				<ListItem dense className="px-0">
+					<div className='flex flex-col mx-4 p-12' style={{ padding: 7.5, borderRadius:5, border: '1px solid rgba(0, 0, 0, 0.05)' }} >
+						<Typography className="mx-8">{props.item.message}</Typography>
+					</div>
+				</ListItem>
+			);
+		}
 		default: {
 			return null;
 		}
