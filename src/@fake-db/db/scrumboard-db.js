@@ -858,7 +858,7 @@ mock.onPost('/api/scrumboard-app/date/new').reply(request => {
 	const { boardId, cardId, data } = JSON.parse(request.data);
 	const board = _.find(scrumboardDB.boards, { id: boardId });
 	const date = scrumboardDB.date
-	
+
 	_.assign(scrumboardDB, { date: [...date, data]})
 	_.assign(board, {
 		cards: _.map(board.cards, _card => {
@@ -950,4 +950,13 @@ mock.onPost('/api/scrumboard-app/card/remove/attachment').reply(request => {
 mock.onGet('/api/calendar-app/events').reply(config => {
 	
 	return [200, scrumboardDB.date];
+});
+
+mock.onGet('/api/calendarApp/all-boards').reply(() => {
+	const response = []
+	scrumboardDB.boards.map(board => {
+		const getBoard = _.find(scrumboardDB.boards, { id: board.id});
+		response.push(getBoard)
+	});
+	return [200, response];
 });

@@ -41,6 +41,18 @@ export const {
 	selectById: selectEventById
 } = eventsAdapter.getSelectors(state => state.scrumboardApp.date);
 
+//
+const boardsAdapter = createEntityAdapter({});
+export const {
+    selectAll: selectBoards
+} = boardsAdapter.getSelectors(state => state.scrumboardApp.boards);
+
+export const getAllBoards = createAsyncThunk('calendarApp/boards/getAllBoards', async () => {
+	const response = await axios.get('/api/calendarApp/all-boards');
+	const data = await response.data;
+	return data;
+});
+
 const dateSlice = createSlice({
 	name: 'calendarApp/events',
 	initialState: eventsAdapter.getInitialState({
