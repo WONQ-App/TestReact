@@ -767,7 +767,6 @@ mock.onGet('/api/calendar-app/events').reply(config => {
 	return [200, scrumboardDB.date];
 });
 
-
 mock.onGet('/api/calendarApp/all-boards').reply(() => {
 	const response = []
 	scrumboardDB.boards.map(board => {
@@ -775,7 +774,6 @@ mock.onGet('/api/calendarApp/all-boards').reply(() => {
 		response.push(getBoard)
 	});
 	return [200, response];
-
 });
 
 mock.onPost('/api/scrumboard-app/list/renameStatus').reply(request => {
@@ -797,6 +795,3 @@ mock.onPost('/api/scrumboard-app/list/renameStatus').reply(request => {
 	});
 	return [200, board];
 });
-
-
-
