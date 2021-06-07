@@ -49,7 +49,7 @@ function CardActivity(props) {
 				</ListItem>
 			);
 		}
-		case 'memo': {
+		case 'log': {
 			return (
 				<ListItem dense className="px-0">
 					<div className='flex flex-col mx-4 p-12' style={{ padding: 7.5, borderRadius:5, border: '1px solid rgba(0, 0, 0, 0.05)' }} >

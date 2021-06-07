@@ -7,7 +7,7 @@ function MemoModel(data) {
 
 	return _.defaults(data, {
 		id: FuseUtils.generateGUID(),
-		type: 'memo',
+		type: 'log',
 		idMember: null,
 		message: '',
 		time: getUnixTime(new Date())

@@ -172,21 +172,21 @@ const scrumboardDB = {
 					memo: [
 						{
 							id: 1,
-							type: 'memo',
+							type: 'log',
 							idMember: '56027c1930450d8bf7b10758',
 							message: 'We should be able to add date-fns without any problems',
 							time: getUnixTime(sub(new Date(), { minutes: 10 }))
 						},
 						{
 							id: 2,
-							type: 'memo',
+							type: 'log',
 							idMember: '36027j1930450d8bf7b10158',
 							message: 'I added a link for a page that might help us deciding the colors',
-							time:getUnixTime(sub(new Date(), { minutes: 20 }))
+							time: getUnixTime(sub(new Date(), { minutes: 20 }))
 						},
 						{
 							id: 3,
-							type: 'memo',
+							type: 'log',
 							idMember: '36027j1930450d8bf7b10158',
 							message: 'attached a link',
 							time: getUnixTime(sub(new Date(), { minutes: 45 }))
@@ -950,4 +950,24 @@ mock.onPost('/api/scrumboard-app/card/remove/attachment').reply(request => {
 mock.onGet('/api/calendar-app/events').reply(config => {
 	
 	return [200, scrumboardDB.date];
+});
+
+mock.onPost('/api/scrumboard-app/list/renameStatus').reply(request => {
+	const { boardId, listId, cardId, listStatus } = JSON.parse(request.data);
+	const board = _.find(scrumboardDB.boards, { id: boardId });
+	const list = _.find(board.lists, { id: listId });
+	_.assign(board, {
+		lists: board.lists.map(list => {
+			_.set(
+				list,
+				'idCards',
+				_.reject(list.idCards, id => id === cardId)
+			);
+			if (list.name === listStatus) {
+				_.assign(list, { idCards: [...list.idCards, cardId] });
+			}
+			return list;
+		})
+	});
+	return [200, board];
 });

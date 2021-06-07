@@ -31,18 +31,23 @@ function CardComment(props) {
 	const user = _.find(props.members, { id: defaultValues.idMember });
 
 	function onSubmit(data) {
-	if (!props.type == 'memo') {
-		props.onCommentAdd(CommentModel({ ...defaultValues, ...data }));
-		reset(defaultValues);
-	return	
-	}
-		props.onCommentAdd(MemoModel({ ...defaultValues, ...data }));
-		reset(defaultValues);
+		if (props.type == 'comment') {
+			props.onCommentAdd(CommentModel({ ...defaultValues, ...data }));
+			console.log(props.type)
+			reset(defaultValues);
+			return;
+		}
+		if (props.type == 'log') {
+			console.log(props.type)
+			props.onCommentAdd(MemoModel({ ...defaultValues, ...data }));
+			reset(defaultValues);
+			return;
+		}
 	}
 
 	return (
 		<>
-			{props.type == 'memo' ? (
+			{props.type == 'log' ? (
 				<form onSubmit={handleSubmit(onSubmit)} className="flex -mx-8">
 					<div className="flex flex-col items-start flex-1 mx-8">
 						<Controller
@@ -113,7 +118,7 @@ function CardComment(props) {
 				</form>
 			)
 
-		}
+			}
 		</>
 	)
 }

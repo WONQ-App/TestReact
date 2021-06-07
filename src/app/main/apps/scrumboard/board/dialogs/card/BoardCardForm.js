@@ -22,7 +22,7 @@ import fromUnixTime from 'date-fns/fromUnixTime';
 import getUnixTime from 'date-fns/getUnixTime';
 import format from 'date-fns/format';
 import { Controller, useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeCardDialog, removeCard, updateCard } from '../../../store/cardSlice';
 import CardActivity from './activity/CardActivity';
@@ -35,9 +35,12 @@ import CheckListMenu from './toolbar/CheckListMenu';
 import DueMenu from './toolbar/DueMenu';
 import LabelsMenu from './toolbar/LabelsMenu';
 import MembersMenu from './toolbar/MembersMenu';
+import Select from '@material-ui/core/Select';
 import OptionsMenu from './toolbar/OptionsMenu';
 import CenteredTabs from './CenteredTabs';
 import DateSelector from './toolbar/DateSelector';
+import Divider from '@material-ui/core/Divider';
+import { renameStatus } from '../../../store/boardSlice';
 
 function BoardCardForm(props) {
 	const dispatch = useDispatch();
@@ -54,26 +57,42 @@ function BoardCardForm(props) {
 
 
 	const list = card ? _.find(board.lists, _list => _list.idCards.includes(card.id)) : null;
-
+	const [status, setStatus] = card ? useState(list.name) : useState();
 	useEffect(() => {
 		if (!card) {
 			return;
 		}
 		const newCard = { ...card, ...cardForm };
 		if (!_.isEqual(newCard.attachments, card.attachments)) {
-            console.log(newCard)
-            console.log(card)
+			console.log(newCard)
+			console.log(card)
 			newCard.attachments = card.attachments
-            // updateCardData(board.id, card);
-            return;
-        }
+			// updateCardData(board.id, card);
+			return;
+		}
 
-		console.log(newCard)
-		console.log(cardForm)
-		if (!_.isEqual(newCard.idMembers, card.idMembers) || !_.isEqual(newCard.idMembers2, card.idMembers2) || !_.isEqual(newCard.idMembers3, card.idMembers3) || !_.isEqual(newCard.idLabels, card.idLabels)) {
+		if (!_.isEqual(newCard.memo, card.memo)) {
+			console.log(newCard)
+			console.log(card)
+			newCard.memo = card.memo
+			// updateCardData(board.id, card);
+			return;
+		}
+
+		console.log(newCard.memo)
+		console.log(card.memo)
+		console.log(newCard.idMembers3)
+		console.log(card.idMembers3)
+		if (!_.isEqual(newCard.idMembers, card.idMembers) || !_.isEqual(newCard.idMembers2, card.idMembers2) || !_.isEqual(newCard.idMembers3, card.idMembers3) || !_.isEqual(newCard.idLabels, card.idLabels) || !_.isEqual(newCard.activities, card.activities)) {
 			updateCardData(board.id, newCard);
+			console.log('up')
 		}
 	}, [board.id, card, cardForm, updateCardData]);
+
+	const handleChange = (event) => {
+		setStatus(event.target.value);
+		dispatch(renameStatus({ boardId: board.id, listId: list.id, cardId: card.id, listStatus: event.target.value}));
+	};
 
 	useEffect(() => {
 		register('idAttachmentCover');
@@ -90,8 +109,18 @@ function BoardCardForm(props) {
 					<AppBar position="static" elevation={0}>
 						<Toolbar className="flex w-full overflow-x-auto px-8 sm:px-16">
 							<div className="flex flex-1">
-							<DateSelector card={cardForm} board={board}/>
-							
+								<DateSelector card={cardForm} board={board} />
+										<Select { ...status }
+											labelId="demo-simple-select-label"
+											id="demo-simple-select"
+											value={status}
+											onChange={handleChange}
+										>
+											{board.lists.map((list) => (
+											<option value={list.name}>{list.name}</option>
+											))}
+										</Select>
+								
 								<OptionsMenu
 									onRemoveCard={() => dispatch(removeCard({ boardId: board.id, cardId: cardForm.id }))}
 								/>
@@ -105,375 +134,271 @@ function BoardCardForm(props) {
 				<Grid container spacing={0}>
 					<Grid item xs={5}>
 						<CenteredTabs />
+						<Divider orientation="vertical" />
 					</Grid>
-					<Grid item xs={7}>
-						<DialogContent className="p-16 sm:p-24">
-							{/* <div className="flex flex-col sm:flex-row sm:justify-between justify-center items-center mb-24">
-									<div className="mb-16 sm:mb-0 flex items-center">
-										<Typography>{board.name}</Typography>
 
-										<Icon className="text-20" color="inherit">
-											chevron_right
-						</Icon>
-
-										<Typography>{list && list.name}</Typography>
-									</div>
-									{cardForm.due ? (
-										<DateTimePicker
-											label="Due date"
-											inputVariant="outlined"
-											value={format(fromUnixTime(cardForm.due), 'Pp')}
-											format="Pp"
-											onChange={val => setValue('due', getUnixTime(val))}
-											placeholder="Choose a due date"
-											className="w-full sm:w-auto"
-										/>
-									) : (
-										<DateTimePicker
-											label="Due date"
-											inputVariant="outlined"
-											format="Pp"
-											onChange={val => setValue('due', getUnixTime(val))}
-											placeholder="Choose a due date"
-											className="w-full sm:w-auto"
-										/>
-									)}
-									{cardForm.due2 ? (
-										<DateTimePicker
-											label="Due date"
-											inputVariant="outlined"
-											value={format(fromUnixTime(cardForm.due2), 'Pp')}
-											format="Pp"
-											onChange={val => setValue('due2', getUnixTime(val))}
-											placeholder="Choose a due date"
-											className="w-full sm:w-auto"
-										/>
-									) : (
-										<DateTimePicker
-											label="Due date"
-											inputVariant="outlined"
-											format="Pp"
-											onChange={val => setValue('due2', getUnixTime(val))}
-											placeholder="Choose a due date"
-											className="w-full sm:w-auto"
-										/>
-
-									)}
-								</div> */}
-
-							{/* <div className="flex items-center mb-24">
-									<Controller
-										name="name"
-										control={control}
-										render={({ field }) => (
-											<TextField
-												{...field}
-												label="Title"
-												type="text"
-												variant="outlined"
-												fullWidth
-												required
-												InputProps={{
-													endAdornment: (
-														<InputAdornment position="end">
-															{card.subscribed && (
-																<Icon className="text-20" color="action">
-																	remove_red_eye
-																</Icon>
-															)}
-														</InputAdornment>
-													)
-												}}
-											/>
-										)}
-									/>
-								</div> */}
-
-							<div className="flex flex-col sm:flex-row -mx-8">
-								<div className="flex-1 mb-24 mx-8">
-									<div className="flex items-center mt-16 mb-12">
-										<Icon className="text-20" color="inherit">
-											label
-								</Icon>
-										<Typography className="font-semibold text-16 mx-8">Labels</Typography>
-									</div>
-									<Autocomplete
-										className="mt-8 mb-16"
-										multiple
-										freeSolo
-										options={board.labels}
-										getOptionLabel={label => {
-											return label.name;
-										}}
-										value={cardForm.idLabels.map(id => _.find(board.labels, { id }))}
-										onChange={(event, newValue) => {
-											const last = newValue.slice(-1)[0];
-											console.log(typeof (last))
-											{
-												typeof (last) != "string" ? (
-													setValue(
-														'idLabels',
-														newValue.map(item => item.id)
-													)
-												) : (
-													newValue.pop()
+					<Grid item xs={7} style={{ border: '1px solid rgba(0, 0, 0, 0.05)' }}>
+						{/* <DialogContent className="p-16 sm:p-24"> */}
+						<div className="flex flex-col sm:flex-row -mx-8">
+							<div className="flex-1 mb-0 mx-8">
+								<Autocomplete
+									className="mt-8 mb-16"
+									multiple
+									freeSolo
+									options={board.labels}
+									getOptionLabel={label => {
+										return label.name;
+									}}
+									value={cardForm.idLabels.map(id => _.find(board.labels, { id }))}
+									onChange={(event, newValue) => {
+										const last = newValue.slice(-1)[0];
+										console.log(typeof (last))
+										{
+											typeof (last) != "string" ? (
+												setValue(
+													'idLabels',
+													newValue.map(item => item.id)
 												)
-											};
-										}}
-										renderTags={(value, getTagProps) =>
-											value.map((option, index) => {
-												return (
-													<Chip
-														label={option.name}
-														{...getTagProps({ index })}
-														className={clsx('m-3', option.class)}
-													/>
-												);
-											})
-										}
-										renderInput={params => (
-											<TextField
-												{...params}
-												placeholder="Select multiple Labels"
-												label="Labels"
-												variant="outlined"
-												InputLabelProps={{
-													shrink: true
-												}}
-											/>
-										)}
-									/>
-								</div>
+											) : (
+												newValue.pop()
+											)
+										};
+									}}
+									renderTags={(value, getTagProps) =>
+										value.map((option, index) => {
+											return (
+												<Chip
+													label={option.name}
+													{...getTagProps({ index })}
+													className={clsx('m-3', option.class)}
+												/>
+											);
+										})
+									}
+									renderInput={params => (
+										<TextField
+											{...params}
+											placeholder="＋ラベルを追加"
+											color="#63BFE0"
+											InputLabelProps={{
+												shrink: true
+											}}
 
+										/>
+									)}
+								/>
 							</div>
-							{/* メンバー設定 */}
-							<div className="flex flex-col sm:flex-row -mx-8">
-								<div className="flex flex-col sm:flex-row -mx-8">
-									<div className="flex-1 mb-24 mx-8">
-										<div className="flex items-center mt-16 mb-12">
-											<Icon className="text-20" color="inherit">
-												supervisor_account
-								</Icon>
-											<Typography className="font-semibold text-16 mx-8">Members</Typography>
-										</div>
-										<Autocomplete
-											className="mt-8 mb-16"
-											multiple
-											freeSolo
-											options={board.members}
-											getOptionLabel={member => {
-												return member.name;
-											}}
-											value={cardForm.idMembers.map(id => _.find(board.members, { id }))}
-											onChange={(event, newValue) => {
-												const last = newValue.slice(-1)[0];
-												{
-													typeof (last) != "string" ? (
-														setValue(
-															'idMembers',
-															newValue.map(item => item.id)
-														)
-													) : (
-														newValue.pop()
-													)
-												};
-											}}
-											renderTags={(value, getTagProps) =>
-												value.map((option, index) => {
-													return (
-														<Chip
-															label={option.name}
-															{...getTagProps({ index })}
-															className={clsx('m-3', option.class)}
-															avatar={
-																<Tooltip title={option.name}>
-																	<Avatar src={option.avatar} />
-																</Tooltip>
-															}
-														/>
-													);
-												})
-											}
-											renderInput={params => (
-												<TextField
-													{...params}
-													placeholder="Select multiple Members"
-													label="Members"
-													variant="outlined"
-													InputLabelProps={{
-														shrink: true
-													}}
+
+						</div>
+						{/* メンバー設定 */}
+						<div className="flex flex-col -mx-8">
+							<div className="flex-1 mb-0 mt-0 mx-24 mx-8">
+								<Autocomplete
+									className="mt-8 mb-16"
+									multiple
+									freeSolo
+									options={board.members}
+									getOptionLabel={member => {
+										return member.name;
+									}}
+									value={cardForm.idMembers.map(id => _.find(board.members, { id }))}
+									onChange={(event, newValue) => {
+										const last = newValue.slice(-1)[0];
+										{
+											typeof (last) != "string" ? (
+												setValue(
+													'idMembers',
+													newValue.map(item => item.id)
+												)
+											) : (
+												newValue.pop()
+											)
+										};
+									}}
+									renderTags={(value, getTagProps) =>
+										value.map((option, index) => {
+											return (
+												<Chip
+													label={option.name}
+													{...getTagProps({ index })}
+													className={clsx('m-3', option.class)}
+													avatar={
+														<Tooltip title={option.name}>
+															<Avatar src={option.avatar} />
+														</Tooltip>
+													}
 												/>
-											)}
-
+											);
+										})
+									}
+									renderInput={params => (
+										<TextField
+											{...params}
+											placeholder="Select multiple Members"
+											label="Members"
+											variant="outlined"
+											InputLabelProps={{
+												shrink: true
+											}}
 										/>
-									</div>
+									)}
 
-
-
-									<div className="flex-1 mb-24 mx-8">
-										<div className="flex items-center mt-16 mb-12">
-											<Icon className="text-20" color="inherit">
-												supervisor_account
-											</Icon>
-											<Typography className="font-semibold text-16 mx-8">Members2</Typography>
-										</div>
-
-										<Autocomplete
-											className="mt-8 mb-16"
-											multiple
-											freeSolo
-											options={board.members}
-											getOptionLabel={member => {
-												return member.name;
-											}}
-											value={cardForm.idMembers2.map(id => _.find(board.members, { id }))}
-											onChange={(event, newValue) => {
-												const last = newValue.slice(-1)[0];
-												{
-													typeof (last) != "string" ? (
-														setValue(
-															'idMembers2',
-															newValue.map(item => item.id)
-														)
-													) : (
-														newValue.pop()
-													)
-												};
-											}}
-											renderTags={(value, getTagProps) =>
-												value.map((option, index) => {
-													return (
-														<Chip
-															label={option.name}
-															{...getTagProps({ index })}
-															className={clsx('m-3', option.class)}
-															avatar={
-																<Tooltip title={option.name}>
-																	<Avatar src={option.avatar} />
-																</Tooltip>
-															}
-														/>
-													);
-												})
-											}
-											renderInput={params => (
-												<TextField
-													{...params}
-													placeholder="Select multiple Members"
-													label="Members2"
-													variant="outlined"
-													InputLabelProps={{
-														shrink: true
-													}}
-												/>
-											)}
-
-										/>
-									</div>
-
-
-									<div className="flex-1 mb-24 mx-8">
-										<div className="flex items-center mt-16 mb-12">
-											<Icon className="text-20" color="inherit">
-												supervisor_account
-											</Icon>
-											<Typography className="font-semibold text-16 mx-8">Members3</Typography>
-										</div>
-										<Autocomplete
-											className="mt-8 mb-16"
-											multiple
-											freeSolo
-											options={board.members}
-											getOptionLabel={member => {
-												return member.name;
-											}}
-											value={cardForm.idMembers3.map(id => _.find(board.members, { id }))}
-											onChange={(event, newValue) => {
-												const last = newValue.slice(-1)[0];
-												{
-													typeof (last) != "string" ? (
-														setValue(
-															'idMembers3',
-															newValue.map(item => item.id)
-														)
-													) : (
-														newValue.pop()
-													)
-												};
-											}}
-											renderTags={(value, getTagProps) =>
-												value.map((option, index) => {
-													return (
-														<Chip
-															label={option.name}
-															{...getTagProps({ index })}
-															className={clsx('m-3', option.class)}
-															avatar={
-																<Tooltip title={option.name}>
-																	<Avatar src={option.avatar} />
-																</Tooltip>
-															}
-														/>
-													);
-												})
-											}
-											renderInput={params => (
-												<TextField
-													{...params}
-													placeholder="Select multiple Members"
-													label="Members3"
-													variant="outlined"
-													InputLabelProps={{
-														shrink: true
-													}}
-												/>
-											)}
-
-										/>
-									</div>
-								</div>
+								/>
 							</div>
-							<div className="mb-24">
-								<div className="flex items-center mt-16 mb-12">
-									<Icon className="text-20" color="inherit">
-										comment
+
+
+
+							<div className="flex-1 mb-0 mt-0 mx-24 mx-8">
+								<Autocomplete
+									className="mt-8 mb-16"
+									multiple
+									freeSolo
+									options={board.members}
+									getOptionLabel={member => {
+										return member.name;
+									}}
+									value={cardForm.idMembers2.map(id => _.find(board.members, { id }))}
+									onChange={(event, newValue) => {
+										const last = newValue.slice(-1)[0];
+										{
+											typeof (last) != "string" ? (
+												setValue(
+													'idMembers2',
+													newValue.map(item => item.id)
+												)
+											) : (
+												newValue.pop()
+											)
+										};
+									}}
+									renderTags={(value, getTagProps) =>
+										value.map((option, index) => {
+											return (
+												<Chip
+													label={option.name}
+													{...getTagProps({ index })}
+													className={clsx('m-3', option.class)}
+													avatar={
+														<Tooltip title={option.name}>
+															<Avatar src={option.avatar} />
+														</Tooltip>
+													}
+												/>
+											);
+										})
+									}
+									renderInput={params => (
+										<TextField
+											{...params}
+											placeholder="Select multiple Members"
+											label="Members2"
+											variant="outlined"
+											InputLabelProps={{
+												shrink: true
+											}}
+										/>
+									)}
+
+								/>
+							</div>
+
+
+							<div className="flex-1 mb-0 mt-0 mx-24 mx-8">
+								<Autocomplete
+									className="mt-8 mb-16"
+									multiple
+									freeSolo
+									options={board.members}
+									getOptionLabel={member => {
+										return member.name;
+									}}
+									value={cardForm.idMembers3.map(id => _.find(board.members, { id }))}
+									onChange={(event, newValue) => {
+										const last = newValue.slice(-1)[0];
+										{
+											typeof (last) != "string" ? (
+												setValue(
+													'idMembers3',
+													newValue.map(item => item.id)
+												)
+											) : (
+												newValue.pop()
+											)
+										};
+									}}
+									renderTags={(value, getTagProps) =>
+										value.map((option, index) => {
+											return (
+												<Chip
+													label={option.name}
+													{...getTagProps({ index })}
+													className={clsx('m-3', option.class)}
+													avatar={
+														<Tooltip title={option.name}>
+															<Avatar src={option.avatar} />
+														</Tooltip>
+													}
+												/>
+											);
+										})
+									}
+									renderInput={params => (
+										<TextField
+											{...params}
+											placeholder="Select multiple Members"
+											label="Members3"
+											variant="outlined"
+											InputLabelProps={{
+												shrink: true
+											}}
+										/>
+									)}
+
+								/>
+							</div>
+						</div>
+
+						<div className="mb-24 mx-24">
+							<div className="flex items-center mt-16 mb-12">
+								<Icon className="text-20" color="inherit">
+									comment
 						</Icon>
-									<Typography className="font-semibold text-16 mx-8">メモ</Typography>
-								</div>
-								<div>
-									<CardComment
-										members={board.members}
-										onCommentAdd={comment => setValue('activities', [comment, ...cardForm.activities])}
-									/>
-								</div>
+								<Typography className="font-semibold text-16 mx-8">コメント</Typography>
 							</div>
+							<div>
+								<CardComment
+									members={board.members}
+									type='comment'
+									onCommentAdd={comment => setValue('activities', [comment, ...cardForm.activities])}
+								/>
+							</div>
+						</div>
 
-							<Controller
-								name="activities"
-								control={control}
-								defaultValue={[]}
-								render={({ field: { onChange, value } }) => (
-									<div>
-										{value.length > 0 && (
-											<div className="mb-24">
-												<div className="flex items-center mt-16">
-													<Icon className="text-20" color="inherit">
-														list
-										</Icon>
-													<Typography className="font-semibold text-16 mx-8">Activity</Typography>
-												</div>
-												<List className="">
-													{value.map(item => (
-														<CardActivity item={item} key={item.id} members={board.members} />
-													))}
-												</List>
+						<Controller
+							name="activities"
+							control={control}
+							defaultValue={[]}
+							render={({ field: { onChange, value } }) => (
+								<div>
+									{value.length > 0 && (
+										<div className="mb-24 mx-24">
+											<div className="flex items-center mt-16">
+												<Icon className="text-20" color="inherit">
+													list
+												</Icon>
+												<Typography className="font-semibold text-16 mx-8">活動</Typography>
 											</div>
-										)}
-									</div>
-								)}
-							/>
-						</DialogContent>
+											<List className="">
+												{value.map(item => (
+													<CardActivity item={item} key={item.id} members={board.members} />
+												))}
+											</List>
+										</div>
+									)}
+								</div>
+							)}
+						/>
+						{/* </DialogContent> */}
 					</Grid>
 				</Grid>
 			</div>

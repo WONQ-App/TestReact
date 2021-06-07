@@ -153,6 +153,20 @@ export const renameList = createAsyncThunk(
 	}
 );
 
+export const renameStatus = createAsyncThunk(
+	'scrumboardApp/board/renameStatus',
+	async ({ boardId, listId, cardId, listStatus }, { dispatch, getState }) => {
+		const response = await axios.post('/api/scrumboard-app/list/renameStatus', {
+			boardId,
+			listId,
+			cardId,
+			listStatus
+		});
+		const data = await response.data;
+		return data;
+	}
+);
+
 export const removeList = createAsyncThunk(
 	'scrumboardApp/board/removeList',
 	async ({ boardId, listId }, { dispatch, getState }) => {
@@ -299,6 +313,9 @@ const boardsSlice = createSlice({
 				}
 				return _card;
 			});
+		},
+		[renameStatus.fulfilled]: (state, action) => {
+			state.lists = action.payload.lists;
 		}
 	}
 });

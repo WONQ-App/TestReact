@@ -45,12 +45,23 @@ function MemoInput(props) {
         if (!card) {
             return;
         }
-
         const newCard = { ...card, ...cardForm };
-        console.log(newCard, 'ss')
-        console.log(cardForm, 'sss')
+        if (!_.isEqual(newCard.idMembers, card.idMembers) || !_.isEqual(newCard.idMembers2, card.idMembers2) || !_.isEqual(newCard.idMembers3, card.idMembers3) || !_.isEqual(newCard.idLabels, card.idLabels) || !_.isEqual(newCard.activities, card.activities)) {
+			newCard.idMembers = card.idMembers
+            newCard.idMembers2 = card.idMembers2
+            newCard.idMembers3 = card.idMembers3
+            newCard.idLabels = card.idLabels
+            newCard.activities = card.activities
+		}
+ 
+        console.log(newCard.memo)
+        console.log(card.memo)
+        console.log(newCard.idMembers3)
+        console.log(card.idMembers3)
+        console.log(card.memo)
         if (!_.isEqual(newCard.memo, card.memo)) {
             updateCardData(board.id, newCard);
+            console.log('update')
         }
     }, [board.id, card, cardForm, updateCardData]);
 
@@ -63,8 +74,8 @@ function MemoInput(props) {
                 <div>
                     <CardComment
                         members={board.members}
-                        type = 'memo'
-                        onCommentAdd={memo => setValue('memo', [memo, ...cardForm.memo])}
+                        type = 'log'
+                        onCommentAdd={log => setValue('memo', [log, ...cardForm.memo])}
                     />
                 </div>
             </div>
