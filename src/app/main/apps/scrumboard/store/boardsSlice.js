@@ -10,6 +10,8 @@ export const getBoards = createAsyncThunk('scrumboardApp/boards/getBoards', asyn
 	return data;
 });
 
+
+
 export const newBoard = createAsyncThunk('scrumboardApp/boards/newBoard', async (board, { dispatch }) => {
 	const response = await axios.post('/api/scrumboard-app/board/new', { board: board || BoardModel() });
 	const data = await response.data;

@@ -14,7 +14,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import CalendarHeader from './CalendarHeader';
 import EventDialog from './EventDialog';
 import reducer from '../scrumboard/store';
-import { selectEvents, openNewEventDialog, openEditEventDialog, updateEvent, getEvents } from '../scrumboard/store/dateSlice';
+import { selectEvents, openNewEventDialog, openEditEventDialog, updateEvent, getEvents, getAllBoards, selectBoards } from '../scrumboard/store/dateSlice';
+import { openCardDialog } from '../scrumboard/store/cardSlice';
+import BoardCardDialog from '../scrumboard/board/dialogs/card/BoardCardDialog';
 
 {/*material-uiの設定 */}
 const useStyles = makeStyles(theme => ({
@@ -77,12 +79,28 @@ function CalendarApp(props) {
 	const [currentDate, setCurrentDate] = useState();
 	const dispatch = useDispatch();
 	const events = useSelector(selectEvents);
+	const boards = useSelector(selectBoards);
 	const calendarRef = useRef();
 	const classes = useStyles(props);
 	const headerEl = useRef(null);
 
+const handleCardClick = clickInfo => {
+		console.log(boards,'00000099')
+		const { id } = clickInfo.event
+		boards.map( board => {
+			board.cards.map( _card, card => {
+				card.date.map(dateId => {
+					if (dateId == id) {
+						dispatch(openCardDialog(_card));
+					}
+				})
+			})
+		})
+	}
+
 	useEffect(() => {
 		dispatch(getEvents());
+		dispatch(getAllBoards());
 	}, [dispatch]);
 
 	const handleDateSelect = selectInfo => {
@@ -156,12 +174,13 @@ function CalendarApp(props) {
 						select={handleDateSelect}
 						events={events}
 						eventContent={renderEventContent}
-						eventClick={handleEventClick}
+						//eventClick={handleEventClick}
+						eventClick={handleCardClick}
 						eventAdd={handleEventAdd}
 						eventChange={handleEventChange}
 						eventRemove={handleEventRemove}
 						eventDrop={handleEventDrop}
-						initialDate={new Date(2021, 3, 1)}
+						initialDate={new Date()}
 						ref={calendarRef}
 					/>
 				</motion.div>
@@ -187,6 +206,7 @@ function CalendarApp(props) {
 					</Fab>
 				</motion.div>
 				<EventDialog />
+				<BoardCardDialog />
 			</div>
 		</div>
 	);

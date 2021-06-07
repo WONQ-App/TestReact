@@ -227,6 +227,8 @@ export const renameBoard = createAsyncThunk(
 	}
 );
 
+
+
 const boardsSlice = createSlice({
 	name: 'scrumboardApp/boards',
 	initialState: null,
