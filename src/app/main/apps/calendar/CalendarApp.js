@@ -98,9 +98,12 @@ const handleCardClick = clickInfo => {
 		})
 	}
 
+<<<<<<< HEAD
 
 	const scrumDialog = useSelector(({ scrumboardApp }) => scrumboardApp);
  master
+=======
+>>>>>>> 46dd300eaaddc47263c717e24838ad86f3f90042
 	useEffect(() => {
 		console.log(scrumDialog)
 		dispatch(getEvents());
