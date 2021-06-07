@@ -39,7 +39,11 @@ function Board(props) {
 	//board情報をstoreから取得
 	const board = useSelector(({ scrumboardApp }) => scrumboardApp.board);
 
-	const routeParams = useParams();
+	const routeParams = {
+		boardId: "customer",
+		boardUri: "board"
+	}
+	
 	const containerRef = useRef(null);
 	const [settingsDrawerOpen, setSettingsDrawerOpen] = useState(false);
 	const [changeList, setChangeList] = useState(false);

@@ -80,8 +80,9 @@ function CalendarApp(props) {
 	const calendarRef = useRef();
 	const classes = useStyles(props);
 	const headerEl = useRef(null);
-
+	const scrumDialog = useSelector(({ scrumboardApp }) => scrumboardApp);
 	useEffect(() => {
+		console.log(scrumDialog)
 		dispatch(getEvents());
 	}, [dispatch]);
 
