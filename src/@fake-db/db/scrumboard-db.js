@@ -95,7 +95,7 @@ const scrumboardDB = {
 				},
 				{
 					id: '1',
-					name: 'Change background colors',
+					name: 'Change background color',
 					date:["000e87e7"],
 					description: '',
 					idAttachmentCover: '67027cahbe3b52ecf2dc631c',

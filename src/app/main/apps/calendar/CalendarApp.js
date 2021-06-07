@@ -96,8 +96,6 @@ const handleCardClick = clickInfo => {
 			board.cards.map( card => {
 				if (card.date) {
 				card.date.map(dateId => {
-					console.log(dateId ,'99393939')
-					console.log(id,'8484848484')
 					if (dateId == id) {
 						
 						dispatch(openCardDialog(card));
