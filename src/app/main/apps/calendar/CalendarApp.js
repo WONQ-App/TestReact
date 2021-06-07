@@ -14,8 +14,9 @@ import interactionPlugin from '@fullcalendar/interaction';
 import CalendarHeader from './CalendarHeader';
 import EventDialog from './EventDialog';
 import reducer from '../scrumboard/store';
-import { selectEvents, openNewEventDialog, openEditEventDialog, updateEvent, getEvents, getAllBoards, selectBoards } from '../scrumboard/store/dateSlice';
+import { selectEvents, openNewEventDialog, openEditEventDialog, updateEvent, getEvents } from '../scrumboard/store/dateSlice';
 import { openCardDialog } from '../scrumboard/store/cardSlice';
+import { getBoard } from '../scrumboard/store/boardSlice';
 import BoardCardDialog from '../scrumboard/board/dialogs/card/BoardCardDialog';
 
 {/*material-uiの設定 */}
@@ -79,35 +80,36 @@ function CalendarApp(props) {
 	const [currentDate, setCurrentDate] = useState();
 	const dispatch = useDispatch();
 	const events = useSelector(selectEvents);
-	const boards = useSelector(selectBoards);
 	const calendarRef = useRef();
 	const classes = useStyles(props);
 	const headerEl = useRef(null);
 
-const handleCardClick = clickInfo => {
-		console.log(boards,'00000099')
-		const { id } = clickInfo.event
-		boards.map( board => {
-			board.cards.map( _card, card => {
-				card.date.map(dateId => {
-					if (dateId == id) {
-						dispatch(openCardDialog(_card));
-					}
-				})
-			})
-		})
+	const board = useSelector(({ scrumboardApp }) => scrumboardApp.board);
+
+	const routeParams = {
+		boardId: "customer",
+		boardUri: "board"
 	}
 
-<<<<<<< HEAD
+const handleCardClick = clickInfo => {
+		const { id } = clickInfo.event
+			board.cards.map( card => {
+				if (card.date) {
+				card.date.map(dateId => {
+					if (dateId == id) {
+						
+						dispatch(openCardDialog(card));
+					}
+				})}
+			  })
+}
 
 	const scrumDialog = useSelector(({ scrumboardApp }) => scrumboardApp);
- master
-=======
->>>>>>> 46dd300eaaddc47263c717e24838ad86f3f90042
+
 	useEffect(() => {
 		console.log(scrumDialog)
 		dispatch(getEvents());
-		dispatch(getAllBoards());
+		dispatch(getBoard(routeParams));
 	}, [dispatch]);
 
 	const handleDateSelect = selectInfo => {
