@@ -7,6 +7,7 @@ function CardModel(data) {
 	return _.defaults(data, {
 		id: FuseUtils.generateGUID(),
 		name: '',
+		date:[],
 		description: '',
 		idAttachmentCover: '',
 		idMembers: [],

@@ -15,8 +15,8 @@ import CalendarHeader from './CalendarHeader';
 import EventDialog from './EventDialog';
 import reducer from '../scrumboard/store';
 import { selectEvents, openNewEventDialog, openEditEventDialog, updateEvent, getEvents } from '../scrumboard/store/dateSlice';
-import { openCardDialog } from '../scrumboard/store/cardSlice';
 import { getBoard } from '../scrumboard/store/boardSlice';
+import { openCardDialog } from '../scrumboard/store/cardSlice';
 import BoardCardDialog from '../scrumboard/board/dialogs/card/BoardCardDialog';
 
 {/*material-uiの設定 */}

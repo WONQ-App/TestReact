@@ -11,6 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { openCardDialog } from '../store/cardSlice';
+import BoardCardDialog from './dialogs/card/BoardCardDialog';
 
 const useStyles = makeStyles({
   table: {
@@ -22,7 +25,16 @@ const useStyles = makeStyles({
 export default function ListTable(props) {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
+  const handleCellClick = (e) => {
+    console.log(e.target.id);
+    const card = _.find(props.cards, { id: e.target.id })
+    dispatch(openCardDialog(card));
+}
+
   return (
+    <>
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
@@ -37,7 +49,7 @@ export default function ListTable(props) {
         </TableHead>
         <TableBody>
           {props.lists.map((listValue, index) => 
-            
+        
             listValue.idCards.map((cardValue, index) => {
                 
              const card = _.find(props.cards, { id: cardValue })
@@ -45,13 +57,13 @@ export default function ListTable(props) {
             const member = _.find(props.member, { id: card.idMembers[0] })
             
              return ( 
-              <TableRow key={card.id}>
-              <TableCell component="th" scope="row">
+              <TableRow key={card.id} onClick={handleCellClick}>
+              <TableCell component="th" scope="row" id={card.id}>
                 {card.name}
               </TableCell>
-              <TableCell align="center">{card.id}</TableCell>
-              <TableCell align="center">{card.name}</TableCell>
-              <TableCell align="center">
+              <TableCell align="center" id={card.id} >{card.id}</TableCell>
+              <TableCell align="center" id={card.id}>{card.name}</TableCell>
+              <TableCell align="center" id={card.id}>
               {card.idLabels.length > 0 && (
 								<div className="flex flex-wrap mb-8 -mx-4">
 									{card.idLabels.map(id => {
@@ -70,7 +82,7 @@ export default function ListTable(props) {
 								</div>
 							)}
               </TableCell>
-              <TableCell align="center" >
+              <TableCell align="center"id={card.id} >
               {card.idMembers.length > 0 && (
 								<div className="flex flex-wrap mb-12 -mx-4">
 									{card.idMembers.map(id => {
@@ -84,7 +96,7 @@ export default function ListTable(props) {
 								</div>
 							)}
 							</TableCell>
-              <TableCell align="center">
+              <TableCell align="center" id={card.id}>
               <Typography type='title' className="text-8 font-medium cursor-pointer "  style={{ padding: 7.5, borderRadius:5, color: '#fff',backgroundColor: listValue.color}}>
 							{listValue.name}
 						</Typography>
@@ -96,5 +108,7 @@ export default function ListTable(props) {
         </TableBody>
       </Table>
     </TableContainer>
+    <BoardCardDialog />
+    </>
   );
 }
