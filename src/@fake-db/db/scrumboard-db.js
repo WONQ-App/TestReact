@@ -220,7 +220,7 @@ const scrumboardDB = {
 				{
 					id: '5',
 					name: 'Fix splash screen bugs',
-					date:['fdfdfd'],
+					date:[],
 					description: '',
 					idAttachmentCover: '',
 					idMembers: ['56027c1930450d8bf7b10758'],
@@ -237,6 +237,7 @@ const scrumboardDB = {
 				{
 					id: '7',
 					name: 'Add alternative authentication pages',
+					date: ["d446fbe0"],
 					description: '',
 					idAttachmentCover: '',
 					idMembers: ['36027j1930450d8bf7b10158'],
@@ -284,6 +285,7 @@ const scrumboardDB = {
 				{
 					id: '4',
 					name: 'Fix the console',
+					date:[],
 					description: 'We need to fix the console asap!',
 					idAttachmentCover: '',
 					idMembers: [],
@@ -323,6 +325,7 @@ const scrumboardDB = {
 				{
 					id: '12',
 					name: 'Memory Leak',
+					date:[],
 					description: '',
 					idAttachmentCover: '',
 					idMembers: ['36027j1930450d8bf7b10158'],
@@ -339,6 +342,7 @@ const scrumboardDB = {
 				{
 					id: '13',
 					name: 'Broken toolbar on profile page',
+					date:[],
 					description: '',
 					idAttachmentCover: '',
 					idMembers: ['26027s1930450d8bf7b10828'],
@@ -362,6 +366,7 @@ const scrumboardDB = {
 				{
 					id: '14',
 					name: 'Button hover style',
+					date:[],
 					description:
 						'If there are 3 or more buttons in certain page, weird flashing happens when you hover over the red ones.',
 					idAttachmentCover: '',
@@ -379,6 +384,7 @@ const scrumboardDB = {
 				{
 					id: '9',
 					name: 'New header designs',
+					date:[],
 					description: '',
 					idAttachmentCover: '12027cafbe3b52ecf2ef632c',
 					idMembers: [],
@@ -457,6 +463,7 @@ const scrumboardDB = {
 				{
 					id: '2',
 					name: 'Mail app new layout',
+					date: [],
 					description: 'Current layout has lots of flaws in mobile. Outlook view should help with that.',
 					idAttachmentCover: '',
 					idMembers: [
@@ -478,6 +485,7 @@ const scrumboardDB = {
 				{
 					id: '6',
 					name: 'API recover and monitoring',
+					date:[],
 					description: 'We need a service to monitor and recover failed APIs.',
 					idAttachmentCover: '',
 					idMembers: ['36027j1930450d8bf7b10158', '76027g1930450d8bf7b10958'],
