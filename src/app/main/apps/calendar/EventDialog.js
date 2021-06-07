@@ -41,7 +41,6 @@ const schema = yup.object().shape({
 function EventDialog(props) {
 	const dispatch = useDispatch();
 	const eventDialog = useSelector(({ scrumboardApp }) => scrumboardApp.date.eventDialog);
-
 	const { reset, formState, watch, control, getValues, handleSubmit } = useForm({
 		defaultValues,
 		mode: 'onChange',
@@ -81,7 +80,9 @@ function EventDialog(props) {
 	 * On Dialog Open
 	 */
 	useEffect(() => {
+
 		if (eventDialog.props.open) {
+		
 			initDialog();
 		}
 	}, [eventDialog.props.open, initDialog]);

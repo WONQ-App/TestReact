@@ -8,9 +8,9 @@ import { startCase } from 'lodash';
 const scrumboardDB = {
 	boards: [
 		{
-			id: '32gfhaf2',
-			name: 'ACME Frontend Application',
-			uri: 'acme-frontend-application',
+			id: 'customer',
+			name: 'お客様管理',
+			uri: 'board',
 			settings: {
 				color: 'fuse-dark',
 				subscribed: false,
@@ -172,21 +172,21 @@ const scrumboardDB = {
 					memo: [
 						{
 							id: 1,
-							type: 'memo',
+							type: 'log',
 							idMember: '56027c1930450d8bf7b10758',
 							message: 'We should be able to add date-fns without any problems',
 							time: getUnixTime(sub(new Date(), { minutes: 10 }))
 						},
 						{
 							id: 2,
-							type: 'memo',
+							type: 'log',
 							idMember: '36027j1930450d8bf7b10158',
 							message: 'I added a link for a page that might help us deciding the colors',
-							time:getUnixTime(sub(new Date(), { minutes: 20 }))
+							time: getUnixTime(sub(new Date(), { minutes: 20 }))
 						},
 						{
 							id: 3,
-							type: 'memo',
+							type: 'log',
 							idMember: '36027j1930450d8bf7b10158',
 							message: 'attached a link',
 							time: getUnixTime(sub(new Date(), { minutes: 45 }))
@@ -580,191 +580,6 @@ const scrumboardDB = {
 				}
 			]
 		},
-		{
-			id: '27cfcbe1',
-			name: 'ACME Backend Application',
-			uri: 'acme-backend-application',
-			settings: {
-				color: 'blue-grey',
-				subscribed: false,
-				cardCoverImages: true
-			},
-			lists: [
-				{
-					id: '56027cf5a2ca3839a5d36103',
-					name: 'Designs',
-					idCards: ['5603a2a3cab0c8300f6096b3']
-				},
-				{
-					id: '56127cf2a2ca3539g7d36103',
-					name: 'Development',
-					idCards: ['5637273da9b93bb84743a0f9']
-				}
-			],
-			cards: [
-				{
-					id: '5603a2a3cab0c8300f6096b3',
-					name: 'Calendar App Design',
-					description: '',
-					idAttachmentCover: '56027cfcbe1b72ecf1fc452a',
-					idMembers: ['56027c1930450d8bf7b10758', '36027j1930450d8bf7b10158'],
-					idMembers2: [],
-					idMembers3: [],
-					idLabels: ['56027e4119ad3a5dc28b36cd', '5640635e19ad3a5dc21416b2'],
-					attachments: [
-						{
-							id: '56027cfcbe1b72ecf1fc452a',
-							name: 'calendar-app-design.jpg',
-							src: 'assets/images/scrumboard/calendar.jpg',
-							time: getUnixTime(sub(new Date(), { minutes: 20 })),
-							type: 'image'
-						},
-						{
-							id: '67027cahbe3b52ecf2dc631c',
-							url: 'assets/images/scrumboard/calendar.jpg',
-							time: getUnixTime(sub(new Date(), { minutes: 10 })),
-							type: 'link'
-						}
-					],
-					subscribed: true,
-					checklists: [
-						{
-							id: '63021cfdbe1x72wcf1fc451v',
-							name: 'Checklist',
-							checkItems: [
-								{
-									id: 1,
-									name: 'Implement a calendar library',
-									checked: false
-								},
-								{
-									id: 2,
-									name: 'Replace event colors with Material Design colors',
-									checked: true
-								},
-								{
-									id: 3,
-									name: 'Replace icons with Material Design icons',
-									checked: false
-								},
-								{
-									id: 4,
-									name: 'Use date-fns',
-									checked: false
-								}
-							]
-						},
-						{
-							name: 'Checklist 2',
-							id: '74031cfdbe1x72wcz1dc166z',
-							checkItems: [
-								{
-									id: 1,
-									name: 'Replace event colors with Material Design colors',
-									checked: true
-								},
-								{
-									id: 2,
-									name: 'Replace icons with Material Design icons',
-									checked: false
-								},
-								{
-									id: 3,
-									name: 'Use date-fns',
-									checked: false
-								}
-							]
-						}
-					],
-					activities: [
-						{
-							id: 1,
-							type: 'comment',
-							idMember: '56027c1930450d8bf7b10758',
-							message: 'We should be able to add date-fns without any problems',
-							time: getUnixTime(sub(new Date(), { minutes: 20 }))
-						},
-						{
-							id: 2,
-							type: 'comment',
-							idMember: '36027j1930450d8bf7b10158',
-							message: 'I added a link for a page that might help us deciding the colors',
-							time: getUnixTime(sub(new Date(), { minutes: 30 }))
-						},
-						{
-							id: 3,
-							type: 'attachment',
-							idMember: '36027j1930450d8bf7b10158',
-							message: 'attached a link',
-							time: getUnixTime(sub(new Date(), { minutes: 45 }))
-						}
-					],
-					due: null
-				},
-				{
-					id: '5637273da9b93bb84743a0f9',
-					name: 'Fix Splash Screen bugs',
-					description: '',
-					idAttachmentCover: '5603a2ae2bbd55bb2db57478',
-					idMembers: ['56027c1930450d8bf7b10758'],
-					idMembers2: [],
-					idMembers3: [],
-					idLabels: [],
-					attachments: [
-						{
-							id: '5603a2ae2bbd55bb2db57478',
-							name: 'mail-app-design.jpg',
-							src: 'assets/images/scrumboard/mail.jpg',
-							time: getUnixTime(sub(new Date(), { minutes: 20 })),
-							type: 'image'
-						}
-					],
-					subscribed: true,
-					checklists: [],
-					activities: [],
-					due: null
-				}
-			],
-			members: [
-				{
-					id: '56027c1930450d8bf7b10758',
-					name: 'Alice Freeman',
-					avatar: 'assets/images/avatars/alice.jpg'
-				},
-				{
-					id: '26027s1930450d8bf7b10828',
-					name: 'Danielle Obrien',
-					avatar: 'assets/images/avatars/danielle.jpg'
-				},
-				{
-					id: '76027g1930450d8bf7b10958',
-					name: 'James Lewis',
-					avatar: 'assets/images/avatars/james.jpg'
-				},
-				{
-					id: '36027j1930450d8bf7b10158',
-					name: 'John Doe',
-					avatar: 'assets/images/avatars/Velazquez.jpg'
-				}
-			],
-			labels: [
-				{
-					id: '56027e4119ad3a5dc28b36cd',
-					name: 'Design',
-					class: 'bg-orange text-white'
-				},
-				{
-					id: '5640635e19ad3a5dc21416b2',
-					name: 'App',
-					class: 'bg-blue text-white'
-				},
-				{
-					id: '6540635g19ad3s5dc31412b2',
-					name: 'Feature',
-					class: 'bg-green text-white'
-				}
-			]
-		}
 	],
 	date: [
 			{
@@ -952,6 +767,7 @@ mock.onGet('/api/calendar-app/events').reply(config => {
 	return [200, scrumboardDB.date];
 });
 
+
 mock.onGet('/api/calendarApp/all-boards').reply(() => {
 	const response = []
 	scrumboardDB.boards.map(board => {
@@ -960,3 +776,24 @@ mock.onGet('/api/calendarApp/all-boards').reply(() => {
 	});
 	return [200, response];
 });
+
+mock.onPost('/api/scrumboard-app/list/renameStatus').reply(request => {
+	const { boardId, listId, cardId, listStatus } = JSON.parse(request.data);
+	const board = _.find(scrumboardDB.boards, { id: boardId });
+	const list = _.find(board.lists, { id: listId });
+	_.assign(board, {
+		lists: board.lists.map(list => {
+			_.set(
+				list,
+				'idCards',
+				_.reject(list.idCards, id => id === cardId)
+			);
+			if (list.name === listStatus) {
+				_.assign(list, { idCards: [...list.idCards, cardId] });
+			}
+			return list;
+		})
+	});
+	return [200, board];
+});
+
