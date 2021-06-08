@@ -16,11 +16,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import _ from '@lodash';
 import { newList } from '../store/boardSlice';
+import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import CardActions from '@material-ui/core/CardActions';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
 	card: {
@@ -144,9 +147,23 @@ function BoardAddList(props) {
 				)}
 			</Card>
 			<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-				<DialogTitle id="form-dialog-title">カードを追加する</DialogTitle>
-				<DialogContent>
-					<DialogContentText>タイトルとカラーを選択してください</DialogContentText>
+			<Card  style={{ color: 'black', backgroundColor: '#fff',borderRadius: 1 }}>
+					<CardActions className="flex justify-between">
+						<IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+							<CloseIcon />
+						</IconButton>
+						<Typography variant="h6" color="inherit">
+							ステータス編集
+						</Typography>
+						<Button autoFocus variant="contained" color="primary" 
+						style={{ color: 'white', backgroundColor: '#89c3eb',borderRadius: 2 }}
+						disabled={_.isEmpty(dirtyFields) || !isValid}
+						onClick={handleSubmit(onSubmit)}>
+							保存
+						</Button>
+					</CardActions>
+				</Card>
+				<DialogContent className="mt-40">
 					<Controller
 						name="title"
 						control={control}
@@ -173,29 +190,41 @@ function BoardAddList(props) {
 						)}
 					/>
 					{/*button add*/}
-					<div className="flex justify-between items-center">
+					<div className="flex justify-between items-center mb-20">
 						<IconButton
+							className="m-4"
 							aria-label="Example"
-							style={{ backgroundColor: '#ff2b00' }}
+							style={{ backgroundColor: '#ff6347' }}
 							onClick={() => {
-								setColor('#ff2b00');
+								setColor('#ff6347');
 							}}
 						></IconButton>
 						<IconButton
+							className="m-4"
 							aria-label="Example"
-							style={{ backgroundColor: '#ffa500' }}
+							style={{ backgroundColor: '#c71585' }}
 							onClick={() => {
-								setColor('#ffa500');
+								setColor('#c71585');
 							}}
 						></IconButton>
 						<IconButton
+							className="m-4"
 							aria-label="Example"
-							style={{ backgroundColor: '#228b22' }}
+							style={{ backgroundColor: '#9400d3' }}
 							onClick={() => {
-								setColor('#228b22');
+								setColor('#9400d3');
 							}}
 						></IconButton>
 						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#19448e' }}
+							onClick={() => {
+								setColor('#19448e');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
 							aria-label="Example"
 							style={{ backgroundColor: '#4169e1' }}
 							onClick={() => {
@@ -203,35 +232,79 @@ function BoardAddList(props) {
 							}}
 						></IconButton>
 						<IconButton
+							className="m-4"
 							aria-label="Example"
-							style={{ backgroundColor: '#ff00ff' }}
+							style={{ backgroundColor: '#507ea4' }}
 							onClick={() => {
-								setColor('#ff00ff');
+								setColor('#507ea4');
 							}}
 						></IconButton>
 						<IconButton
+							className="m-4"
 							aria-label="Example"
-							style={{ backgroundColor: '#6a5acd' }}
+							style={{ backgroundColor: '#89c3eb' }}
 							onClick={() => {
-								setColor('#6a5acd');
+								setColor('#89c3eb');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#33cc99' }}
+							onClick={() => {
+								setColor('#33cc99');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#33cc66' }}
+							onClick={() => {
+								setColor('#33cc66');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#33ff00' }}
+							onClick={() => {
+								setColor('#33ff00');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#ffcc00' }}
+							onClick={() => {
+								setColor('#ffcc00');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#ff9900' }}
+							onClick={() => {
+								setColor('#ff9900');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#ff0000' }}
+							onClick={() => {
+								setColor('#ff0000');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#666666' }}
+							onClick={() => {
+								setColor('#666666');
 							}}
 						></IconButton>
 					</div>
 				</DialogContent>
-				<DialogActions>
-					<Button onClick={handleClose} color="primary">
-						Cancel
-					</Button>
-					<Button
-						variant="contained"
-						color="secondary"
-						type="submit"
-						disabled={_.isEmpty(dirtyFields) || !isValid}
-						onClick={handleSubmit(onSubmit)}
-					>
-						Add
-					</Button>
-				</DialogActions>
 			</Dialog>
 		</div>
 	);

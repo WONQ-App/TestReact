@@ -2,9 +2,13 @@ import { Controller, useForm } from 'react-hook-form';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import { makeStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import CloseIcon from '@material-ui/icons/Close';
+import Toolbar from '@material-ui/core/Toolbar';
+import AppBar from '@material-ui/core/AppBar';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
@@ -21,11 +25,23 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
-import { spacing } from '@material-ui/system';
-import { borders } from '@material-ui/system';
+import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp';
 
-
+const useStyles = makeStyles(theme => ({
+	appBar: {
+		position: 'relative',
+		backgroundColor: 'white',
+		justifyContent: 'spaceBetween',
+		color: 'black'
+	},
+	title: {
+		marginLeft: theme.spacing(2),
+		flex: 1
+	}
+}));
 /**
  * Form Validation Schema
  */
@@ -36,6 +52,7 @@ const schema = yup.object().shape({
 function BoardListHeader(props) {
 	const dispatch = useDispatch();
 	const board = useSelector(({ scrumboardApp }) => scrumboardApp.board);
+	const classes = useStyles();
 
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [formOpen, setFormOpen] = useState(false);
@@ -56,9 +73,9 @@ function BoardListHeader(props) {
 
 	const { isValid, dirtyFields, errors } = formState;
 
-	const handleClickOpen = (ev) => {
+	const handleClickOpen = ev => {
 		ev.stopPropagation();
-		handleMenuClose()
+		handleMenuClose();
 		setOpen(true);
 	};
 
@@ -71,9 +88,8 @@ function BoardListHeader(props) {
 			reset({
 				title: props.list.name
 			});
-			setColor(afColor)
+			setColor(afColor);
 		}
-		
 	}, [open, reset, props.list.name]);
 
 	useEffect(() => {
@@ -81,8 +97,7 @@ function BoardListHeader(props) {
 			setAnchorEl(null);
 		}
 	}, [anchorEl, open]);
-	
-	
+
 	function handleMenuClick(event) {
 		setAnchorEl(event.currentTarget);
 	}
@@ -101,12 +116,11 @@ function BoardListHeader(props) {
 	}
 
 	function onSubmit(data) {
-		setAfColor(color)
-		dispatch(renameList({ boardId: board.id, listId: props.list.id, listTitle: data.title, boardColor: color}));
+		setAfColor(color);
+		dispatch(renameList({ boardId: board.id, listId: props.list.id, listTitle: data.title, boardColor: color }));
 		handleClose();
 	}
 
-	
 	return (
 		<div {...props.handleProps}>
 			<div className="flex items-center justify-between h-48 sm:h-64 px-8">
@@ -141,46 +155,45 @@ function BoardListHeader(props) {
 							</form>
 						</ClickAwayListener>
 										) : ()*/}
-						<Typography type='title' className="text-8 font-medium cursor-pointer "  style={{ padding: 7.5, borderRadius:5, color: '#fff',backgroundColor: afColor}}>
-							<pre>{props.list.name} | {props.list.idCards.length}</pre>
-						</Typography>
-						
-					
+					<Typography
+						type="title"
+						className="text-8 font-medium cursor-pointer "
+						style={{ padding: 7.5, borderRadius: 5, color: '#fff', backgroundColor: afColor }}
+					>
+						<pre>
+							{props.list.name} | {props.list.idCards.length}
+						</pre>
+					</Typography>
 				</div>
 				<div className="">
 					<IconButton
 						aria-owns={anchorEl ? 'actions-menu' : null}
 						aria-haspopup="true"
-						onClick={handleMenuClick}
+						onClick={handleClickOpen}
 						variant="outlined"
 						size="small"
 					>
 						<Icon className="text-20">more_vert</Icon>
 					</IconButton>
-					<Menu id="actions-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-						<MenuItem
-							onClick={() => {
-								dispatch(removeList({ boardId: board.id, listId: props.list.id }));
-							}}
-						>
-							<ListItemIcon className="min-w-40">
-								<Icon>delete</Icon>
-							</ListItemIcon>
-							<ListItemText primary="ボートリスト削除" />
-						</MenuItem>
-						<MenuItem onClick={handleClickOpen}>
-							<ListItemIcon className="min-w-40">
-								<Icon>edit</Icon>
-							</ListItemIcon>
-							<ListItemText primary="ボードリスト編集" />
-						</MenuItem>
-					</Menu>
 				</div>
 			</div>
 			<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-				<DialogTitle id="form-dialog-title">リストを編集</DialogTitle>
-				<DialogContent>
-					<DialogContentText>タイトルとカラーを編集してください</DialogContentText>
+				<Card  style={{ color: 'black', backgroundColor: '#fff',borderRadius: 1 }}>
+					<CardActions className="flex justify-between">
+						<IconButton edge="start" color="inherit" onClick={handleClose} aria-label="close">
+							<CloseIcon />
+						</IconButton>
+						<Typography variant="h6" color="inherit">
+							<pre> ステータス編集</pre>
+						</Typography>
+						<Button autoFocus variant="contained" color="primary" 
+						style={{ color: 'white', backgroundColor: '#89c3eb',borderRadius: 2 }}
+						onClick={handleSubmit(onSubmit)}>
+							保存
+						</Button>
+					</CardActions>
+				</Card>
+				<DialogContent className="mt-40">
 					<Controller
 						name="title"
 						control={control}
@@ -189,40 +202,51 @@ function BoardListHeader(props) {
 								{...field}
 								className="mb-16"
 								required
-								style={{ color: '#fff', backgroundColor: color}}
+								style={{ color: '#fff', backgroundColor: color }}
 								fullWidth
-								variant="filled"
+								//variant="filled"
 								label="List title"
 								autoFocus
 							/>
-							
 						)}
 					/>
 					{/*button add*/}
-					
-					<div className="flex justify-between items-center">
+
+					<div className="flex justify-between items-center  ">
 						<IconButton
+							className="m-4"
 							aria-label="Example"
-							style={{ backgroundColor: '#ff2b00' }}
+							style={{ backgroundColor: '#ff6347' }}
 							onClick={() => {
-								setColor('#ff2b00');
+								setColor('#ff6347');
 							}}
 						></IconButton>
 						<IconButton
+							className="m-4"
 							aria-label="Example"
-							style={{ backgroundColor: '#ffa500' }}
+							style={{ backgroundColor: '#c71585' }}
 							onClick={() => {
-								setColor('#ffa500');
+								setColor('#c71585');
 							}}
 						></IconButton>
 						<IconButton
+							className="m-4"
 							aria-label="Example"
-							style={{ backgroundColor: '#228b22' }}
+							style={{ backgroundColor: '#9400d3' }}
 							onClick={() => {
-								setColor('#228b22');
+								setColor('#9400d3');
 							}}
 						></IconButton>
 						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#19448e' }}
+							onClick={() => {
+								setColor('#19448e');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
 							aria-label="Example"
 							style={{ backgroundColor: '#4169e1' }}
 							onClick={() => {
@@ -230,34 +254,90 @@ function BoardListHeader(props) {
 							}}
 						></IconButton>
 						<IconButton
+							className="m-4"
 							aria-label="Example"
-							style={{ backgroundColor: '#ff00ff' }}
+							style={{ backgroundColor: '#507ea4' }}
 							onClick={() => {
-								setColor('#ff00ff');
+								setColor('#507ea4');
 							}}
 						></IconButton>
 						<IconButton
+							className="m-4"
 							aria-label="Example"
-							style={{ backgroundColor: '#6a5acd' }}
+							style={{ backgroundColor: '#89c3eb' }}
 							onClick={() => {
-								setColor('#6a5acd');
+								setColor('#89c3eb');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#33cc99' }}
+							onClick={() => {
+								setColor('#33cc99');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#33cc66' }}
+							onClick={() => {
+								setColor('#33cc66');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#33ff00' }}
+							onClick={() => {
+								setColor('#33ff00');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#ffcc00' }}
+							onClick={() => {
+								setColor('#ffcc00');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#ff9900' }}
+							onClick={() => {
+								setColor('#ff9900');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#ff0000' }}
+							onClick={() => {
+								setColor('#ff0000');
+							}}
+						></IconButton>
+						<IconButton
+							className="m-4"
+							aria-label="Example"
+							style={{ backgroundColor: '#666666' }}
+							onClick={() => {
+								setColor('#666666');
 							}}
 						></IconButton>
 					</div>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={handleClose} color="primary">
-						Cancel
-					</Button>
-					<Button
-						variant="contained"
-						color="secondary"
-						type="submit"
-						onClick={handleSubmit(onSubmit)}
+					<IconButton
+						edge="start"
+						color="inherit"
+						className="mt-10 mb-24"
+						aria-label="close"
+						onClick={() => {
+							dispatch(removeList({ boardId: board.id, listId: props.list.id }));
+						}}
 					>
-						編集
-					</Button>
-				</DialogActions>
+						<DeleteForeverSharpIcon />
+					</IconButton>
+				</DialogContent>
 			</Dialog>
 		</div>
 	);

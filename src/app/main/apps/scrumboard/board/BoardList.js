@@ -29,14 +29,14 @@ function BoardList(props) {
 	}
 
 	return (
-		<Draggable draggableId={props.list.id} index={props.index} type="list">
+		<Draggable draggableId={props.list.id} index={props.index} type="list" >
 			{(provided, snapshot) => (
-				<div ref={provided.innerRef} {...provided.draggableProps}>
+				<div ref={provided.innerRef} {...provided.draggableProps} >
 					<Card
 						className={clsx(
 							classes.list,
 							snapshot.isDragging ? 'shadow-lg' : 'shadow',
-							'w-256 sm:w-320 mx-8 sm:mx-12 max-h-full flex flex-col rounded-20'
+							'w-256 sm:w-320 mx-8 sm:mx-12 max-h-full flex flex-col rounded-10'
 						)}
 						square
 					>

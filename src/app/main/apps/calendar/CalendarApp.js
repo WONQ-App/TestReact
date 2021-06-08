@@ -179,15 +179,13 @@ const handleCardClick = clickInfo => {
 						selectMirror
 						dayMaxEvents
 						weekends
+						locale='ja'
 						datesSet={handleDates}
 						select={handleDateSelect}
 						events={events}
 						eventContent={renderEventContent}
 						//eventClick={handleEventClick}
 						eventClick={handleCardClick}
-						eventAdd={handleEventAdd}
-						eventChange={handleEventChange}
-						eventRemove={handleEventRemove}
 						eventDrop={handleEventDrop}
 						initialDate={new Date()}
 						ref={calendarRef}
