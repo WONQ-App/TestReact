@@ -60,7 +60,8 @@ const StyledMenuItem = withStyles((theme) => ({
 function CardComment(props) {
 	const defaultValues = {
 		idMember: '36027j1930450d8bf7b10158',
-		message: ''
+		message: '',
+		attachments: []
 	};
 	const { control, formState, handleSubmit, reset } = useForm({
 		mode: 'onChange',
@@ -177,7 +178,9 @@ function CardComment(props) {
 									fullWidth
 									error={!!errors.message}
 									helperText={errors?.message?.message}
-									row={3}
+									label="Multiline"
+									multiline
+									row={5}
 									variant="outlined"
 									label="メモ"
 									placeholder="メモを入力"
@@ -195,7 +198,7 @@ function CardComment(props) {
 									size="small"
 									disabled={_.isEmpty(dirtyFields) || !isValid}
 								>
-									Save
+									送信
 								</Button>
 							</div>
 
@@ -281,7 +284,9 @@ function CardComment(props) {
 									fullWidth
 									error={!!errors.message}
 									helperText={errors?.message?.message}
-									row={3}
+									label="Multiline"
+									multiline
+									row={5}
 									variant="outlined"
 									label="コメント"
 									placeholder="コメントを入力"
@@ -298,7 +303,7 @@ function CardComment(props) {
 							size="small"
 							disabled={_.isEmpty(dirtyFields) || !isValid}
 						>
-							Save
+							送信
 						</Button>
 					</div>
 				</form>
