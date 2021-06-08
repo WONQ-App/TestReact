@@ -16,7 +16,7 @@ import { useEffect } from 'react';
 function CardAttachment(props) {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const dispatch = useDispatch();
-    const card = useSelector(({ scrumboardApp }) => scrumboardApp.card.data);
+	const card = useSelector(({ scrumboardApp }) => scrumboardApp.card.data);
 	const board = useSelector(({ scrumboardApp }) => scrumboardApp.board);
 	const { register, watch, control, setValue } = useForm({ mode: 'onChange', defaultValues: card });
 	const cardForm = watch();
@@ -27,20 +27,20 @@ function CardAttachment(props) {
 	}, 600);
 
 	useEffect(() => {
-        if (!card) {
-            return;
-        }
-		
-        const newCard = { ...card, ...cardForm };
+		if (!card) {
+			return;
+		}
+
+		const newCard = { ...card, ...cardForm };
 		console.log(newCard.attachments)
-		console.log(card.attachments,'w')
-        if (!_.isEqual(newCard.attachments, card.attachments)) {
-            console.log(newCard)
-            console.log(card)
+		console.log(card.attachments, 'w')
+		if (!_.isEqual(newCard.attachments, card.attachments)) {
+			console.log(newCard)
+			console.log(card)
 			newCard.attachments = card.attachments
-            // updateCardData(board.id, card);
-        }
-    }, [board.id, card, cardForm, updateCardData]);
+			// updateCardData(board.id, card);
+		}
+	}, [board.id, card, cardForm, updateCardData]);
 
 
 	function handleMenuOpen(event) {
@@ -60,32 +60,33 @@ function CardAttachment(props) {
 							<img className="block max-h-full max-h-full" src={props.item.src} alt="attachment" />
 						</Paper>
 					</div> */}
-					<div className="flex flex-auto flex-col justify-center items-start min-w-0 px-16">
-						<div className="flex items-center w-full">
-							<Typography className="text-8 truncate flex-shrink">
-								{props.item.name}
-							</Typography>
-						</div>
-				
-					</div>
+
 					<Button
 						aria-owns={anchorEl ? 'actions-menu' : null}
 						aria-haspopup="true"
 						onClick={
 							handleMenuOpen
-							
+
 						}
 						size="small"
 					>
-						Actions
-							<Icon className="text-8">arrow_drop_down</Icon>
+						<Icon className="text-8">insert_drive_file</Icon>
+						<div className="flex flex-auto flex-col justify-center items-start min-w-0 px-16">
+							<div className="flex items-center w-full">
+								<Typography className="text-8 truncate flex-shrink">
+									{props.item.name}
+								</Typography>
+							</div>
+
+						</div>
+						<Icon className="text-8">arrow_drop_down</Icon>
 					</Button>
 					<Menu id="actions-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
 
 						<MenuItem
 							onClick={() => {
 								handleMenuClose();
-								
+
 								let link = document.createElement('a')
 								link.href = props.item.src
 								link.download = props.item.name
@@ -94,7 +95,7 @@ function CardAttachment(props) {
 						>
 							ダウンロード
 								</MenuItem>
-						<MenuItem
+						{/* <MenuItem
 							onClick={() => {
 								handleMenuClose();
 								dispatch(removeAttachment({ boardId: board.id, cardId: cardForm.id, attachmenID: props.item.id, card: cardForm}))
@@ -103,7 +104,7 @@ function CardAttachment(props) {
 							}}
 						>
 							Remove Attachment
-							</MenuItem>
+							</MenuItem> */}
 					</Menu>
 				</div>
 			);
@@ -149,7 +150,7 @@ function CardAttachment(props) {
 								onClick={() => {
 									handleMenuClose();
 									//props.removeAttachment(props.item.id);
-								
+
 								}}
 							>
 								Remove Attachment

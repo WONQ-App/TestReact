@@ -83,7 +83,7 @@ function BoardCard(props) {
 									})}
 								</div>
 							)}
-							{(card.due || checkItems > 0) && (
+							{/* {(card.due || checkItems > 0) && (
 								<div className="flex items-center mb-12 -mx-4">
 									{card.due && (
 										<div
@@ -113,7 +113,7 @@ function BoardCard(props) {
 										</div>
 									)}
 								</div>
-							)}
+							)} */}
 
 							{card.idMembers.length > 0 && (
 								<div className="flex flex-wrap mb-12 -mx-4">
