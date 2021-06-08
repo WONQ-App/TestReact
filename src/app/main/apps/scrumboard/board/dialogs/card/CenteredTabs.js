@@ -12,6 +12,7 @@ import Box from '@material-ui/core/Box';
 import UserDataInput from './UserDataInput';
 import AttachimentInput from './AttachimentInput';
 import MemoInput from './MemoInput';
+import Icon from '@material-ui/core/Icon';
 
 
 const width = 20;
@@ -82,10 +83,10 @@ const CenteredTabs = (props) => {
                 scrollButtons="off"
                 aria-label="scrollable prevent tabs example"
             >
-                <Tab style={{ minWidth: 80 }} icon={<PhoneIcon />} aria-label="phone" {...a11yProps(0)} />
-                <Tab style={{ minWidth: 80 }} icon={<FavoriteIcon />} aria-label="favorite" {...a11yProps(1)} />
-                <Tab style={{ minWidth: 80 }} icon={<PersonPinIcon />} aria-label="person" {...a11yProps(2)} />
-                <Tab style={{ minWidth: 80 }} icon={<HelpIcon />} aria-label="help" {...a11yProps(3)} />
+                <Tab style={{ minWidth: 77 }} icon={<div className='flex flex-col items-center'　fontSize={6} ><Icon>assignment</Icon> <Box textAlign="center" fontSize={3} fontColor={'#818181'} fontWeight="fontWeightLight">データ</Box></div>} aria-label="phone" {...a11yProps(0)} />
+                <Tab style={{ minWidth: 77 }} icon={<div className='flex flex-col items-center'　fontSize={6} ><Icon>description</Icon> <Box textAlign="center" fontSize={3} fontColor={'#818181'} fontWeight="fontWeightLight">メモ</Box></div>} aria-label="favorite" {...a11yProps(1)} />
+                <Tab style={{ minWidth: 77 }} icon={<div className='flex flex-col items-center'　fontSize={6} ><Icon>attachment</Icon> <Box textAlign="center" fontSize={3} fontColor={'#818181'} fontWeight="fontWeightLight">ファイル</Box></div>} aria-label="person" {...a11yProps(2)} />
+                <Tab style={{ minWidth: 77 }} icon={<div className='flex flex-col items-center'　fontSize={6} ><Icon>history</Icon> <Box textAlign="center" fontSize={3} fontColor={'#818181'} fontWeight="fontWeightLight">タイムライン</Box></div>} aria-label="help" {...a11yProps(3)} />
             </Tabs>
             <TabPanel value={value} index={0}>
                 <UserDataInput />

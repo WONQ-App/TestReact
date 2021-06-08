@@ -62,14 +62,11 @@ function CardAttachment(props) {
 					</div> */}
 					<div className="flex flex-auto flex-col justify-center items-start min-w-0 px-16">
 						<div className="flex items-center w-full">
-							<Typography className="text-16 font-semibold truncate flex-shrink">
+							<Typography className="text-8 truncate flex-shrink">
 								{props.item.name}
 							</Typography>
 						</div>
-						<Typography className="truncate w-full mb-12" color="textSecondary">
-							{format(fromUnixTime(props.item.time), 'Pp')}
-						</Typography>
-
+				
 					</div>
 					<Button
 						aria-owns={anchorEl ? 'actions-menu' : null}
@@ -81,7 +78,7 @@ function CardAttachment(props) {
 						size="small"
 					>
 						Actions
-							<Icon className="text-20">arrow_drop_down</Icon>
+							<Icon className="text-8">arrow_drop_down</Icon>
 					</Button>
 					<Menu id="actions-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
 

@@ -316,19 +316,20 @@ function UserDataInput(props) {
               -
             </Box>
           )}
-
-          <Button
+<div className="w-full">
+<div className="flex justify-end">
+          <Button 
             onClick={handleOpenForm}
+            size='small'
             classes={{
-              root: 'font-medium w-full px-16 rounded-none h-48',
-              label: 'justify-start'
+              root: 'font-small rounded-none'
             }}
           >
-            <Icon className="text-20">settings</Icon>
-            <span className="mx-8">編集</span>
+            <Icon className="text-15">settings</Icon>
           </Button>
+          </div>
         </div>
-
+</div>
 
       )}
     </div>
