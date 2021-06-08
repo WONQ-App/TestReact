@@ -99,6 +99,9 @@ function Board(props) {
 					>
 						リスト
 					</Button>
+					<h2>{board.lists.map((list) => (
+                    list.name + ' : ' + list.idCards.length + '　　'
+                    ))}</h2> 
 					<Button
 						color="inherit"
 						onClick={() => {
