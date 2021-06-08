@@ -63,12 +63,16 @@ export default function DateSelector(props) {
 	}
 	return (
 		<div>
-			<Button
+			<Button 
+			    
 				aria-controls="customized-menu"
 				aria-haspopup="true"
-				variant="contained"
+				variant="outlined"
 				color="secondary"
 				onClick={handleClick}
+				classes={{
+					root: 'rounded-none'
+				  }}
 			>
 				スケジュール
 			</Button>

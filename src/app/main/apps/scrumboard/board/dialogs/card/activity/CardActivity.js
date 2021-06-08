@@ -3,6 +3,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import format from 'date-fns/format';
 import clsx from 'clsx';
 import fromUnixTime from 'date-fns/fromUnixTime';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
@@ -27,7 +28,7 @@ function CardActivity(props) {
 						<div className="flex items-center">
 							<Typography>{user.name}</Typography>
 							<Typography className="mx-8 text-12" color="textSecondary">
-								{formatDistanceToNow(fromUnixTime(props.item.time), { addSuffix: true })}
+							{format(fromUnixTime(props.item.time), 'yyyy/MM/dd hh:mm:ss')}
 							</Typography>
 						</div>
 						<Typography>{props.item.message}</Typography>
@@ -43,7 +44,7 @@ function CardActivity(props) {
 						<Typography>{user.name},</Typography>
 						<Typography className="mx-8">{props.item.message}</Typography>
 						<Typography className="text-12" color="textSecondary">
-							{formatDistanceToNow(fromUnixTime(props.item.time), { addSuffix: true })}
+						{format(fromUnixTime(props.item.time), 'yyyy/MM/dd hh:mm:ss')}
 						</Typography>
 					</div>
 				</ListItem>
@@ -53,6 +54,9 @@ function CardActivity(props) {
 			return (
 				<ListItem dense className="px-0">
 					<div className='flex flex-col mx-4 p-12' style={{ padding: 7.5, borderRadius:5, border: '1px solid rgba(0, 0, 0, 0.05)' }} >
+						<Typography className="mx-8 text-12" color="textSecondary">
+						{format(fromUnixTime(props.item.time), 'yyyy/MM/dd hh:mm:ss')}
+						</Typography>
 						<Typography className="mx-8">{props.item.message}</Typography>
 					</div>
 				</ListItem>

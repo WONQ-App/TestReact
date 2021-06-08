@@ -91,7 +91,7 @@ function BoardCardForm(props) {
 
 	const handleChange = (event) => {
 		setStatus(event.target.value);
-		dispatch(renameStatus({ boardId: board.id, listId: list.id, cardId: card.id, listStatus: event.target.value}));
+		dispatch(renameStatus({ boardId: board.id, listId: list.id, cardId: card.id, listStatus: event.target.value }));
 	};
 
 	useEffect(() => {
@@ -108,19 +108,24 @@ function BoardCardForm(props) {
 				<DialogTitle component="div" className="p-0">
 					<AppBar position="static" elevation={0}>
 						<Toolbar className="flex w-full overflow-x-auto px-8 sm:px-16">
-							<div className="flex flex-1">
+							<div className="flex mx-3">
+								<Select {...status}
+
+									style={{ background: 'white', width: '100px', height: '35px' }}
+									labelId="demo-simple-select-label"
+									id="demo-simple-select"
+									value={status}
+									onChange={handleChange}
+								>
+									{board.lists.map((list) => (
+										<option value={list.name}>{list.name}</option>
+									))}
+								</Select>
+							</div>
+							<div className="flex mx-3">
 								<DateSelector card={cardForm} board={board} />
-										<Select { ...status }
-											labelId="demo-simple-select-label"
-											id="demo-simple-select"
-											value={status}
-											onChange={handleChange}
-										>
-											{board.lists.map((list) => (
-											<option value={list.name}>{list.name}</option>
-											))}
-										</Select>
-								
+							</div>
+							<div className="flex flex-1 mx-3">
 								<OptionsMenu
 									onRemoveCard={() => dispatch(removeCard({ boardId: board.id, cardId: cardForm.id }))}
 								/>
@@ -169,6 +174,9 @@ function BoardCardForm(props) {
 											return (
 												<Chip
 													label={option.name}
+													classes={{
+														root: 'font-small rounded'
+													  }}
 													{...getTagProps({ index })}
 													className={clsx('m-3', option.class)}
 												/>

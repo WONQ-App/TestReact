@@ -68,9 +68,6 @@ function MemoInput(props) {
     return (
         <div className="w-full mb-24">
             <div className="mb-24">
-                <div className="flex items-center mt-16 mb-12">
-                    <Typography className="font-semibold text-16 mx-8">メモ</Typography>
-                </div>
                 <div>
                     <CardComment
                         members={board.members}
