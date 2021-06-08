@@ -63,26 +63,21 @@ function BoardCardForm(props) {
 			return;
 		}
 		const newCard = { ...card, ...cardForm };
+		console.log(newCard)
+		console.log(card)
 		if (!_.isEqual(newCard.attachments, card.attachments)) {
 			console.log(newCard)
 			console.log(card)
 			newCard.attachments = card.attachments
 			// updateCardData(board.id, card);
-			return;
 		}
 
 		if (!_.isEqual(newCard.memo, card.memo)) {
-			console.log(newCard)
-			console.log(card)
 			newCard.memo = card.memo
 			// updateCardData(board.id, card);
-			return;
 		}
 
-		console.log(newCard.memo)
-		console.log(card.memo)
-		console.log(newCard.idMembers3)
-		console.log(card.idMembers3)
+		
 		if (!_.isEqual(newCard.idMembers, card.idMembers) || !_.isEqual(newCard.idMembers2, card.idMembers2) || !_.isEqual(newCard.idMembers3, card.idMembers3) || !_.isEqual(newCard.idLabels, card.idLabels) || !_.isEqual(newCard.activities, card.activities)) {
 			updateCardData(board.id, newCard);
 			console.log('up')
@@ -242,9 +237,9 @@ function BoardCardForm(props) {
 									renderInput={params => (
 										<TextField
 											{...params}
-											placeholder="Select multiple Members"
-											label="Members"
-											variant="outlined"
+											placeholder="＋担当者を追加"
+											label="担当者"
+											//variant="outlined"
 											InputLabelProps={{
 												shrink: true
 											}}
@@ -298,9 +293,9 @@ function BoardCardForm(props) {
 									renderInput={params => (
 										<TextField
 											{...params}
-											placeholder="Select multiple Members"
-											label="Members2"
-											variant="outlined"
+											placeholder="＋調査担当者を追加"
+											label="調査担当者"
+											//variant="outlined"
 											InputLabelProps={{
 												shrink: true
 											}}
@@ -353,9 +348,8 @@ function BoardCardForm(props) {
 									renderInput={params => (
 										<TextField
 											{...params}
-											placeholder="Select multiple Members"
-											label="Members3"
-											variant="outlined"
+											placeholder="＋見積担当者を追加"
+											label="見積担当者"
 											InputLabelProps={{
 												shrink: true
 											}}

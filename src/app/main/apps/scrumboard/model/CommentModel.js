@@ -10,7 +10,8 @@ function CommentModel(data) {
 		type: 'comment',
 		idMember: null,
 		message: '',
-		time: getUnixTime(new Date())
+		time: getUnixTime(new Date()),
+		attachments:[]
 	});
 }
 

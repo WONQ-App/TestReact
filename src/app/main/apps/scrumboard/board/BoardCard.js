@@ -74,7 +74,7 @@ function BoardCard(props) {
 											<Chip
 												label={label.name}
 												//{...getTagProps({ index })}
-												className={clsx('m-3', label.class)}
+												className={clsx('m-3 rounded', label.class)}
 											/>
 											// <Tooltip title={label.name} key={id}>
 											// 	<div className={clsx(label.class, 'w-32  h-6 rounded-6 mx-4 mb-6')} />
@@ -83,7 +83,7 @@ function BoardCard(props) {
 									})}
 								</div>
 							)}
-							{(card.due || checkItems > 0) && (
+							{/* {(card.due || checkItems > 0) && (
 								<div className="flex items-center mb-12 -mx-4">
 									{card.due && (
 										<div
@@ -113,7 +113,7 @@ function BoardCard(props) {
 										</div>
 									)}
 								</div>
-							)}
+							)} */}
 
 							{card.idMembers.length > 0 && (
 								<div className="flex flex-wrap mb-12 -mx-4">

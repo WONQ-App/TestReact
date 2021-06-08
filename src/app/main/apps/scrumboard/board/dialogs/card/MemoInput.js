@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import CardComment from './comment/CardComment';
 import _ from '@lodash';
-import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import CardActivity from './activity/CardActivity';
 import { closeCardDialog, removeCard, updateCard } from '../../../store/cardSlice';
@@ -45,7 +44,9 @@ function MemoInput(props) {
         if (!card) {
             return;
         }
+
         const newCard = { ...card, ...cardForm };
+      
         if (!_.isEqual(newCard.idMembers, card.idMembers) || !_.isEqual(newCard.idMembers2, card.idMembers2) || !_.isEqual(newCard.idMembers3, card.idMembers3) || !_.isEqual(newCard.idLabels, card.idLabels) || !_.isEqual(newCard.activities, card.activities)) {
 			newCard.idMembers = card.idMembers
             newCard.idMembers2 = card.idMembers2
@@ -53,11 +54,9 @@ function MemoInput(props) {
             newCard.idLabels = card.idLabels
             newCard.activities = card.activities
 		}
+
  
         console.log(newCard.memo)
-        console.log(card.memo)
-        console.log(newCard.idMembers3)
-        console.log(card.idMembers3)
         console.log(card.memo)
         if (!_.isEqual(newCard.memo, card.memo)) {
             updateCardData(board.id, newCard);
