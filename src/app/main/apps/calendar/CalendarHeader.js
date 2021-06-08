@@ -103,7 +103,7 @@ function CalendarHeader(props) {
 			<div
 				className={clsx(
 					classes.root,
-					'flex h-200 min-h-200 relative',
+					'flex h-100 min-h-100 relative',
 					format(new Date(currentDate?.start || null), 'MMM')
 				)}
 			>

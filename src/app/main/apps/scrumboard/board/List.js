@@ -28,9 +28,11 @@ export default function ListTable(props) {
   const dispatch = useDispatch();
 
   const handleCellClick = (e) => {
-    console.log(e.target.id);
+    console.log(e.target);
     const card = _.find(props.cards, { id: e.target.id })
-    dispatch(openCardDialog(card));
+    if (e.target.id){
+      dispatch(openCardDialog(card));
+    }
 }
 
   return (
@@ -65,18 +67,16 @@ export default function ListTable(props) {
               <TableCell align="center" id={card.id}>{card.name}</TableCell>
               <TableCell align="center" id={card.id}>
               {card.idLabels.length > 0 && (
-								<div className="flex flex-wrap mb-8 -mx-4">
+								<div className="flex flex-wrap mb-8 -mx-4" id={card.id}>
 									{card.idLabels.map(id => {
 										const label = _.find(props.label, { id });
 										return (
 											<Chip
 												label={label.name}
 												//{...getTagProps({ index })}
-												className={clsx('m-3', label.class)}
+												className={clsx('m-3 rounded', label.class)}
+                        id={card.id}
 											/>
-											// <Tooltip title={label.name} key={id}>
-											// 	<div className={clsx(label.class, 'w-32  h-6 rounded-6 mx-4 mb-6')} />
-											// </Tooltip>
 										);
 									})}
 								</div>
@@ -84,12 +84,12 @@ export default function ListTable(props) {
               </TableCell>
               <TableCell align="center"id={card.id} >
               {card.idMembers.length > 0 && (
-								<div className="flex flex-wrap mb-12 -mx-4">
+								<div className="flex flex-wrap mb-12 -mx-4" id={card.id}>
 									{card.idMembers.map(id => {
 										const member = _.find(props.member, { id });
                     console.log(member.avatar)
 										return (
-												<Avatar className="mx-4 w-32 h-32" src={member.avatar}/>
+												<Avatar className="mx-4 w-32 h-32" src={member.avatar} id={card.id}/>
 										);
 									})}
 									<div />
@@ -97,7 +97,9 @@ export default function ListTable(props) {
 							)}
 							</TableCell>
               <TableCell align="center" id={card.id}>
-              <Typography type='title' className="text-8 font-medium cursor-pointer "  style={{ padding: 7.5, borderRadius:5, color: '#fff',backgroundColor: listValue.color}}>
+              <Typography type='title' className="text-8 font-medium cursor-pointer "  
+              style={{ padding: 7.5, borderRadius:5, color: '#fff',backgroundColor: listValue.color}}
+              id={card.id}>
 							{listValue.name}
 						</Typography>
               </TableCell>

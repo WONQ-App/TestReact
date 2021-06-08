@@ -58,7 +58,7 @@ function BoardCard(props) {
 						className={clsx(
 							classes.card,
 							snapshot.isDragging ? 'shadow-lg' : 'shadow-0',
-							'w-full mb-16 rounded-16 cursor-pointer border-1'
+							'w-full mb-16 rounded-none cursor-pointer border-1'
 						)}
 						onClick={ev => handleCardClick(ev, card)}
 					>
