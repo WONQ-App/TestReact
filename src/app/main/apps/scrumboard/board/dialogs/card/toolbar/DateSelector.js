@@ -3,15 +3,15 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
 import DueMenu from './DueMenu';
 import { Controller, useForm } from 'react-hook-form';
 import { newDate } from 'app/main/apps/scrumboard/store/boardSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const StyledMenu = withStyles({
 	paper: {
@@ -49,6 +49,15 @@ export default function DateSelector(props) {
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [startValue, setStartValue] = useState(new Date())
 	const [finValue, setFinValue] = useState(new Date())
+	const [open, setOpen] = useState(false);
+
+	const handleOpenPop = () => {
+	  setOpen(true);
+	};
+  
+	const handleClosePop = () => {
+	  setOpen(false);
+	};
 	const handleClick = event => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -59,7 +68,12 @@ export default function DateSelector(props) {
 
 	function onSubmit() {
 		console.log(startValue.toString())
-		dispatch(newDate({ boardId: props.board.id, cardId: props.card.id, title: props.card.name, start:startValue.toISOString(), end:finValue.toISOString() }));
+		if (startValue.toISOString() < finValue.toISOString()){
+			dispatch(newDate({ boardId: props.board.id, cardId: props.card.id, title: props.card.name, start:startValue.toISOString(), end:finValue.toISOString() }));
+			handleClose()
+		} else {
+			setOpen(true);
+		}
 	}
 	return (
 		<div>
@@ -93,6 +107,29 @@ export default function DateSelector(props) {
 					<ListItemText primary="スケジュール追加" />
 				</StyledMenuItem>
 			</StyledMenu>
+			<Dialog
+        open={open}
+        onClose={handleClosePop}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+		className='rounded-none'
+      >
+        <DialogTitle 
+		id="alert-dialog-title" 
+		className='grid justify-items-center'
+		style={{color: 'red'}}
+		>
+			設定できない日付です。
+		</DialogTitle>
+        <DialogContent>
+          <DialogContentText 
+		  id="alert-dialog-description"
+		  className='grid justify-items-center '
+		  >
+           開始日付と終了日付を確認してください。
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
 		</div>
 	);
 }
