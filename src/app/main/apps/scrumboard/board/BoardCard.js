@@ -74,7 +74,7 @@ function BoardCard(props) {
 											<Chip
 												label={label.name}
 												//{...getTagProps({ index })}
-												className={clsx('m-3', label.class)}
+												className={clsx('m-3 rounded', label.class)}
 											/>
 											// <Tooltip title={label.name} key={id}>
 											// 	<div className={clsx(label.class, 'w-32  h-6 rounded-6 mx-4 mb-6')} />
