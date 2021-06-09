@@ -72,7 +72,7 @@ function BoardAddCard(props) {
 									required
 									fullWidth
 									variant="filled"
-									label="Card title"
+									label="お名前"
 									autoFocus
 									InputProps={{
 										...field,
@@ -95,7 +95,7 @@ function BoardAddCard(props) {
 								type="submit"
 								disabled={_.isEmpty(dirtyFields) || !isValid}
 							>
-								Add
+							追加
 							</Button>
 						</div>
 					</form>
@@ -104,12 +104,12 @@ function BoardAddCard(props) {
 				<Button
 					onClick={handleOpenForm}
 					classes={{
-						root: 'font-medium w-full px-16 rounded-none h-48',
+						root: 'font-medium w-full px-16 rounded h-48',
 						label: 'justify-start'
 					}}
 				>
 					<Icon className="text-20">add</Icon>
-					<span className="mx-8">Add a card</span>
+					<span className="mx-8">カードを追加</span>
 				</Button>
 			)}
 		</div>

@@ -4,6 +4,7 @@ import FuseUtils from '@fuse/utils';
 import history from '@history';
 import _ from '@lodash';
 import { showMessage } from 'app/store/fuse/messageSlice';
+import getUnixTime from 'date-fns/getUnixTime';
 import CardModel from '../model/CardModel';
 import ListModel from '../model/ListModel';
 import reorder, { reorderQuoteMap } from './reorder';
@@ -99,7 +100,7 @@ export const newCard = createAsyncThunk(
 		const response = await axios.post('/api/scrumboard-app/card/new', {
 			boardId,
 			listId,
-			data: CardModel({ name: cardTitle })
+			data: CardModel({ name: cardTitle, createday: getUnixTime(new Date())})
 		});
 
 		const data = await response.data;

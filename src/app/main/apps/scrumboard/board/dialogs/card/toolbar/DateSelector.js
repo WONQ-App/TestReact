@@ -85,7 +85,7 @@ export default function DateSelector(props) {
 				color="secondary"
 				onClick={handleClick}
 				classes={{
-					root: 'rounded-none'
+					root: 'rounded'
 				  }}
 			>
 				スケジュール
@@ -112,7 +112,7 @@ export default function DateSelector(props) {
         onClose={handleClosePop}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-		className='rounded-none'
+		className='rounded'
       >
         <DialogTitle 
 		id="alert-dialog-title" 

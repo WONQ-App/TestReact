@@ -539,7 +539,7 @@ const scrumboardDB = {
 						}
 					],
 					activities: [],
-					due: getUnixTime(sub(new Date(), { days: 12 })),
+					createday: getUnixTime(sub(new Date(), { days: 12 })),
 					lineid: 'efaffeaf'
 				}
 			],

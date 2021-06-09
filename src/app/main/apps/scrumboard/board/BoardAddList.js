@@ -92,7 +92,7 @@ function BoardAddList(props) {
 
 	return (
 		<div>
-			<Card className={clsx(classes.card, 'w-320 mx-8 sm:mx-12 rounded-none shadow')} square>
+			<Card className={clsx(classes.card, 'w-320 mx-8 sm:mx-12 rounded shadow')} square>
 				{formOpen ? (
 					<ClickAwayListener onClickAway={handleClose}>
 						{/*<form className="p-16" onSubmit={handleSubmit(onSubmit)}>
@@ -137,12 +137,12 @@ function BoardAddList(props) {
 					<Button
 						onClick={handleClickOpen}
 						classes={{
-							root: 'font-medium w-full rounded-none h-64 px-16',
+							root: 'font-medium w-full rounded-3 h-64 px-16',
 							label: 'justify-start'
 						}}
 					>
 						<Icon className="text-32 text-red">add_circle</Icon>
-						<span className="mx-8">Add a list</span>
+						<span className="mx-8">ステータス追加</span>
 					</Button>
 				)}
 			</Card>
@@ -175,7 +175,7 @@ function BoardAddList(props) {
 								style={{ backgroundColor: color}}
 								fullWidth
 								variant="filled"
-								label="リスト名"
+								label="ステータス"
 								autoFocus
 								InputProps={{
 									endAdornment: (

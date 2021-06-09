@@ -150,7 +150,7 @@ function Board(props) {
 				<DragDropContext onDragEnd={onDragEnd}>
 					<Droppable droppableId="list" type="list" direction="horizontal">
 						{provided => (
-							<div ref={provided.innerRef} className="flex container py-16 md:py-24 px-8 md:px-12">
+							<div ref={provided.innerRef} className="flex container py-16 md:py-24 px-8 md:px-12 rounded">
 								{board.lists.map((list, index) => (
 									<BoardList key={list.id} list={list} index={index} />
 								))}

@@ -10,6 +10,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useEffect, useState } from 'react';
+import format from 'date-fns/format';
+import fromUnixTime from 'date-fns/fromUnixTime';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import _ from '@lodash';
@@ -211,9 +213,9 @@ function UserDataInput(props) {
           <Box textAlign="left" fontSize={6} fontColor={'#818181'} fontWeight="fontWeightLight" mt={1}>
             作成日時
         </Box>
-          {card.tourokuday ? (
+          {card.createday ? (
             <Box textAlign="left" fontSize={12} fontColor={'black'} fontWeight="fontWeightLight" m={0}>
-              {card.tourokuday}
+              {format(fromUnixTime(card.createday), 'yyyy年MM月dd日 hh:mm:ss')}
             </Box>
           ) : (
             <Box textAlign="left" fontSize={12} fontColor={'black'} fontWeight="fontWeightLight" m={0}>
@@ -322,7 +324,7 @@ function UserDataInput(props) {
             onClick={handleOpenForm}
             size='small'
             classes={{
-              root: 'font-small rounded-none'
+              root: 'font-small rounded'
             }}
           >
             <Icon className="text-15">settings</Icon>

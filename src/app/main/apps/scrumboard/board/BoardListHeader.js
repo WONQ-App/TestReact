@@ -205,7 +205,7 @@ function BoardListHeader(props) {
 								style={{ color: '#fff', backgroundColor: color }}
 								fullWidth
 								//variant="filled"
-								label="List title"
+								label="ステータス"
 								autoFocus
 							/>
 						)}
