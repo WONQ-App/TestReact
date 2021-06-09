@@ -31,7 +31,8 @@ function CardModel(data) {
 		meikana: '',
 		seibetsu: '',
 		birthday: '',
-		number: ''
+		number: '',
+		createday:[]
 
 
 	});

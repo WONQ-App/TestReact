@@ -8,8 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import clsx from 'clsx';
 import format from 'date-fns/format';
+import Box from '@material-ui/core/Box';
 import fromUnixTime from 'date-fns/fromUnixTime';
-import getUnixTime from 'date-fns/getUnixTime';
 import { Draggable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { openCardDialog } from '../store/cardSlice';
@@ -58,13 +58,24 @@ function BoardCard(props) {
 						className={clsx(
 							classes.card,
 							snapshot.isDragging ? 'shadow-lg' : 'shadow-0',
-							'w-full mb-16 rounded-none cursor-pointer border-1'
+							'w-full mb-16 rounded cursor-pointer border-1'
 						)}
 						onClick={ev => handleCardClick(ev, card)}
 					>
-						
+
 						<div className="p-16 pb-0">
-						<Typography className="font-small mb-12">#{card.id}</Typography>
+							<Box textAlign="left" fontSize={6} fontColor={'#818181'} fontWeight="fontWeightLight" >
+								#{card.id}
+							</Box>
+							{card.createday ? (
+							<Box textAlign="left" fontSize={6} fontColor={'#818181'} fontWeight="fontWeightLight" >
+									{format(fromUnixTime(card.createday), 'yyyy年MM月dd日 hh:mm:ss')}
+								</Box>
+							) : (
+								<>
+								</>
+							)}
+							{/* <Typography className="font-small mb-12"></Typography> */}
 							<Typography className="font-medium mb-12">{card.name}</Typography>
 							{card.idLabels.length > 0 && (
 								<div className="flex flex-wrap mb-8 -mx-4">
