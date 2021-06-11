@@ -50,6 +50,7 @@ function FuseNavVerticalLayout1(props) {
 				className
 			)}
 		>
+			
 			{navigation.map(_item => (
 				<FuseNavItem
 					key={_item.id}

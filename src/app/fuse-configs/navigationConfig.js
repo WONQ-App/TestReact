@@ -1,36 +1,48 @@
+
 const navigationConfig = [
 	{
-		id: 'applications',
-		title: 'Applications',
-		translate: 'APPLICATIONS',
-		type: 'group',
-		icon: 'apps',
+		id: 'dashboards',
+		title: 'ダッシュボード',
+		type: 'collapse',
+		icon: 'dashboard',
 		children: [
 			{
-				id: 'scrumboard',
-				title: 'Scrumboard',
-				translate: 'SCRUMBOARD',
+				id: 'analytics-dashboard',
+				title: 'Analytics',
 				type: 'item',
-				icon: 'assessment',
-				url: '/apps/scrumboard'
+				url: '/apps/dashboards/analytics'
+			},
+			{
+				id: 'project-dashboard',
+				title: 'Project',
+				type: 'item',
+				url: '/apps/dashboards/project'
 			}
 		]
 	},
 	{
-		id: 'pages',
-		title: 'Pages',
-		type: 'group',
-		icon: 'pages',
-		children: [
-			{
-				id: 'coming-soon',
-				title: 'Coming Soon',
-				type: 'item',
-				icon: 'alarm',
-				url: '/pages/coming-soon'
-			}
-		]
+		id: 'calendar',
+		title: 'カレンダー',
+		type: 'item',
+		icon: 'today',
+		url: '/apps/calendar'
+	},
+	{
+		id: 'scrumboard',
+		title: 'お客様管理',
+		type: 'item',
+		icon: 'assessment',
+		url: '/apps/scrumboard'
+
+	},
+	{
+		id: 'contacts',
+		title: 'Contacts（ユーザー管理）',
+		type: 'item',
+		icon: 'account_box',
+		url: '/apps/contacts/all'
 	}
+
 ];
 
 export default navigationConfig;

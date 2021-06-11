@@ -15,6 +15,7 @@ function DemoSidebarContent() {
 
 	return (
 		<div>
+		dh
 			<List dense>
 				{generate(
 					<ListItem button>

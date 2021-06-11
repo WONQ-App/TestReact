@@ -61,8 +61,8 @@ function NavbarStyle1(props) {
 					<NavbarStyle1Content />
 				</div>
 			</Hidden>
-
 			<Hidden lgUp>
+				
 				<SwipeableDrawer
 					classes={{
 						paper: clsx(classes.navbarPaper, 'flex-col flex-auto h-full')

@@ -66,6 +66,7 @@ function FuseNavigation(props) {
 		'selectedId'
 	]);
 	if (props.navigation.length > 0) {
+		console.log("props.layout")
 		switch (props.layout) {
 			case 'horizontal': {
 				return <FuseNavHorizontalLayout1 {...options} />;

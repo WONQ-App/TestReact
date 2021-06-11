@@ -1,6 +1,7 @@
 import { createSelector, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import navigationConfig from 'app/fuse-configs/navigationConfig';
 import FuseUtils from '@fuse/utils';
+import i18next from 'i18next';
 import _ from '@lodash';
 
 const navigationAdapter = createEntityAdapter();
@@ -48,26 +49,35 @@ const navigationSlice = createSlice({
 
 export const { setNavigation, resetNavigation } = navigationSlice.actions;
 
-export const selectNavigation = createSelector((navigation, language, userRole) => {
-	function setTranslationValues(data) {
-		// loop through every object in the array
-		return data.map(item => {
-			// see if there is a children node
-			if (item.children) {
-				// run this function recursively on the children array
-				item.children = setTranslationValues(item.children);
-			}
-			return item;
-		});
-	}
+const getUserRole = state => state.auth.user.role;
 
-	return setTranslationValues(
-		_.merge(
-			[],
-			FuseUtils.filterRecursive(navigation, item => FuseUtils.hasPermission(item.auth, userRole))
-		)
-	);
-});
+export const selectNavigation = createSelector(
+	[selectNavigationAll, getUserRole],
+	(navigation, userRole) => {
+		function setTranslationValues(data) {
+			// loop through every object in the array
+			return data.map(item => {
+				if (item.translate && item.title) {
+					item.title = i18next.t(`navigation:${item.translate}`);
+				}
+
+				// see if there is a children node
+				if (item.children) {
+					// run this function recursively on the children array
+					item.children = setTranslationValues(item.children);
+				}
+				return item;
+			});
+		}
+
+		return setTranslationValues(
+			_.merge(
+				[],
+				FuseUtils.filterRecursive(navigation, item => FuseUtils.hasPermission(item.auth, userRole))
+			)
+		);
+	}
+);
 
 export const selectFlatNavigation = createSelector([selectNavigation], navigation =>
 	FuseUtils.getFlatNavigation(navigation)

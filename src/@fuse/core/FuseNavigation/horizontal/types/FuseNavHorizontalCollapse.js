@@ -104,7 +104,6 @@ function FuseNavHorizontalCollapse(props) {
 											{item.icon}
 										</Icon>
 									)}
-
 									<ListItemText
 										className="fuse-list-item-text"
 										primary={item.title}
