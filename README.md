@@ -45,6 +45,7 @@ $ amplify env remove dev
 
 # api関係
 $ amplify mock api
+$ amplify codegen model
 
 # プロジェクトを削除
 $ amplify delete

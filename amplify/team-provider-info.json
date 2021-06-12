@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "fireinsurance1e26ef17": {}
+        "fireinsurance1e26ef17": {},
+        "userPoolGroups": {}
       }
     }
   }
