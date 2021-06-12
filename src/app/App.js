@@ -87,10 +87,7 @@ const App = () => {
 										>
 											{/* 認証チェック */}
 											{authState === AuthState.SignedIn && user ? (
-												<div>
-													<AmplifySignOut />
-													<FuseLayout />
-												</div>
+												<FuseLayout />
 											) : (
 												<AmplifyAuthenticator
 													slot="amplify-authenticator"

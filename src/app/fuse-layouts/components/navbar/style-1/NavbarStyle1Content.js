@@ -5,6 +5,7 @@ import NavbarToggleButton from 'app/fuse-layouts/shared-components/NavbarToggleB
 import Navigation from 'app/fuse-layouts/shared-components/Navigation';
 import clsx from 'clsx';
 import { memo } from 'react';
+import { AmplifySignOut } from '@aws-amplify/ui-react';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -47,6 +48,7 @@ function NavbarStyle1Content(props) {
 			>
 				<NavbarToggleButton className="w-40 h-40 p-0" />
 			</AppBar>
+			<AmplifySignOut />
 
 			<FuseScrollbars
 				className={clsx(classes.content)}
