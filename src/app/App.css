@@ -1,0 +1,30 @@
+amplify-authenticator {
+  --amplify-primary-color: #ff6347;
+  --amplify-primary-tint: #ff7359;
+  --amplify-primary-shade: #e0573e;
+}
+
+amplify-confirm-sign-in {
+  --width: "100%";
+}
+amplify-sign-in {
+  --width: "100%";
+}
+amplify-sign-up {
+  --width: "100%";
+}
+amplify-confirm-sign-up {
+  --width: "100%";
+}
+amplify-forgot-password {
+  --width: "100%";
+}
+amplify-require-new-password {
+  --width: "100%";
+}
+amplify-verify-contact {
+  --width: "100%";
+}
+amplify-totp-setup {
+  --width: "100%";
+}
