@@ -4,8 +4,23 @@ import { schema } from './schema';
 
 
 
-const { User } = initSchema(schema);
+const { ScheduleCategory, Schedule, UserRelationship, User, CustomerUser, Customer, Conversation, Comment, S3Object, Timeline, Memo, CustomerCustomerLabel, CustomerLabel, Profile, CustomerStatus, UserType } = initSchema(schema);
 
 export {
-  User
+  ScheduleCategory,
+  Schedule,
+  UserRelationship,
+  User,
+  CustomerUser,
+  Customer,
+  Conversation,
+  Comment,
+  S3Object,
+  Timeline,
+  Memo,
+  CustomerCustomerLabel,
+  CustomerLabel,
+  Profile,
+  CustomerStatus,
+  UserType
 };
