@@ -4,6 +4,18 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
+export declare class Invoice {
+  readonly id: string;
+  readonly fixedDate?: string;
+  readonly customerID?: string;
+  readonly status?: boolean;
+  readonly amount?: number;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<Invoice>);
+  static copyOf(source: Invoice, mutator: (draft: MutableModel<Invoice>) => MutableModel<Invoice> | void): Invoice;
+}
+
 export declare class ScheduleCategory {
   readonly id: string;
   readonly name?: string;
@@ -44,6 +56,8 @@ export declare class User {
   readonly Profile?: Profile;
   readonly UserRelationships?: (UserRelationship | null)[];
   readonly Icon?: S3Object;
+  readonly earned?: number;
+  readonly contract?: number;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<User>);
@@ -77,6 +91,7 @@ export declare class Customer {
   readonly email?: string;
   readonly S3Objects?: (S3Object | null)[];
   readonly Officers?: (CustomerUser | null)[];
+  readonly Invoices?: (Invoice | null)[];
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Customer>);
