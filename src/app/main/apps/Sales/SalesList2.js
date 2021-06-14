@@ -319,7 +319,7 @@
 // 						<Button onClick={() => openDialog(sale.cardId)}>詳細</Button>
 // 					  </TableCell>
 //                     </TableRow>
-//                   );
+//                   ); 
 //                 })}
 //               {emptyRows > 0 && (
 //                 <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>

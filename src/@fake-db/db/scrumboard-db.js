@@ -621,7 +621,7 @@ const scrumboardDB = {
 				cardId: "1",
 				title: '山田　吾郎',
 				type: "sales",　//AuthのType入力し管理者なら売上管理それ以外なら支払いになる
-				day: "2021/5/30",
+				day: "2021/5/30", 
 				price: "19800",
 			},
 			{

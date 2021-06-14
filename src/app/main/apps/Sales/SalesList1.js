@@ -338,7 +338,7 @@ export default function SalesList1(props) {
           page={page}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
+        /> 
       </Paper>
       
       <BoardCardDialog />

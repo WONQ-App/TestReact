@@ -6,7 +6,7 @@ const SalesListConfig = {
 			config: {}
 		}
 	},
-	routes: [
+	routes: [ 
 		{
 			path: '/apps/sales',
 			component: lazy(() => import('./SalesList'))

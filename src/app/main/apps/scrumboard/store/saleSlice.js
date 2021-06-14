@@ -15,7 +15,7 @@ export const {
 
 
 const saleSlice = createSlice({
-	name: 'salesApp/sale',
+	name: 'salesApp/sale', 
 	initialState: salesAdapter.getInitialState({}),
 
 	extraReducers: {

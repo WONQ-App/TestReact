@@ -1,6 +1,6 @@
 
 const navigationConfig = [
-	{
+	{ 
 		id: 'dashboards',
 		title: 'ダッシュボード',
 		type: 'collapse',

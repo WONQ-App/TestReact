@@ -41,7 +41,7 @@ function SalesList() {
 
 	const routeParams = {
 		boardId: 'customer',
-		boardUri: 'board'
+		boardUri: 'board',
 	};
 
 
