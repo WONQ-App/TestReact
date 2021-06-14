@@ -37,7 +37,7 @@ function Layout(props) {
 	const { routes } = appContext;
 	const classes = useStyles({ ...props, config });
 
-	return (
+	return ( 
 		<div id="fuse-layout" className={clsx(classes.root, config.mode, 'w-full flex')}>
 			{config.leftSidePanel.display && <LeftSideLayout />}
 

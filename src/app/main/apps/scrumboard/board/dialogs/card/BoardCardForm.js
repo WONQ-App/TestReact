@@ -39,8 +39,10 @@ import Select from '@material-ui/core/Select';
 import OptionsMenu from './toolbar/OptionsMenu';
 import CenteredTabs from './CenteredTabs';
 import DateSelector from './toolbar/DateSelector';
+import SalesInput from './toolbar/SalesInput';
 import Divider from '@material-ui/core/Divider';
 import { renameStatus } from '../../../store/boardSlice';
+
 
 function BoardCardForm(props) {
 	const dispatch = useDispatch();
@@ -121,6 +123,9 @@ function BoardCardForm(props) {
 							</div>
 							<div className="flex mx-3">
 								<DateSelector card={cardForm} board={board} />
+							</div>
+							<div>
+								<SalesInput card={cardForm} board={board} />
 							</div>
 							<div className="flex flex-1 mx-3">
 								<OptionsMenu

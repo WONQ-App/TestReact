@@ -614,6 +614,64 @@ const scrumboardDB = {
 				start: "2021-06-01T07:20:00.000Z",
 				end: "2021-06-02T07:20:00.000Z"
 			}
+	],
+	sales: [
+			{
+				id: '1',
+				cardId: "1",
+				title: '山田　吾郎',
+				type: "sales",　//AuthのType入力し管理者なら売上管理それ以外なら支払いになる
+				day: "2021/5/30", 
+				price: "19800",
+			},
+			{
+				id: '2',
+				cardId: "2",
+				title: '中島　次郎',
+				type: "sales", 
+				day: "2021/6/7",
+				price: "25000",
+			},
+			{
+				id: '3',
+				cardId: "8",
+				title: '森田　淳也',
+				type: "sales", 
+				day: "2021/6/10",
+				price: "30000",
+			},
+			{
+				id: '7',
+				cardId: "7",
+				title: '古賀　弘樹',
+				type: "sales", 
+				day: "2021/6/19",
+				price: "78000",
+			},
+			{
+				id: '5',
+				cardId: "5",
+				title: '平田　誠也',
+				type: "sales", 
+				day: "2021/6/13",
+				price: "45000",
+			},
+			{
+				id: '6',
+				cardId: "7",
+				title: '古賀　弘樹',
+				type: "sales", 
+				day: "2021/6/16",
+				price: "50000",
+			},
+			{
+				id: '4',
+				cardId: "4",
+				title: '中島　太郎',
+				type: "buy", 
+				day: "2021/6/7",
+				price: "25000",
+			}
 	]
 };
 
@@ -691,8 +749,23 @@ mock.onPost('/api/scrumboard-app/date/new').reply(request => {
 			return _card;
 		})
 	});
-	
-	console.log(date,"564")
+	return [200, board, scrumboardDB];
+});
+
+mock.onPost('/api/scrumboard-app/sales/new').reply(request => {
+	const { boardId, cardId, data } = JSON.parse(request.data);
+	const board = _.find(scrumboardDB.boards, { id: boardId });
+	const sales = scrumboardDB.sales
+
+	_.assign(scrumboardDB, { sales: [...sales, data]})
+	// _.assign(board, {
+	// 	cards: _.map(board.cards, _card => {
+	// 		if (_card.id === cardId ) {
+	// 			_.assign(_card, { date: [..._card.date, data.id] });
+	// 		}
+	// 		return _card;
+	// 	})
+	// });
 	return [200, board, scrumboardDB];
 });
 
@@ -773,6 +846,11 @@ mock.onPost('/api/scrumboard-app/card/remove/attachment').reply(request => {
 mock.onGet('/api/calendar-app/events').reply(config => {
 	
 	return [200, scrumboardDB.date];
+});
+
+mock.onGet('/api/sales-app/get').reply(config => {
+	
+	return [200, scrumboardDB.sales];
 });
 
 mock.onGet('/api/calendarApp/all-boards').reply(() => {
