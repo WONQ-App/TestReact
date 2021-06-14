@@ -41,8 +41,14 @@ const navigationConfig = [
 		type: 'item',
 		icon: 'account_box',
 		url: '/apps/contacts/all'
+	},
+	{
+		id: 'Sales',
+		title: '売上管理',
+		type: 'item',
+		icon: 'assessment',
+		url: '/apps/sales'
 	}
-
 ];
 
 export default navigationConfig;

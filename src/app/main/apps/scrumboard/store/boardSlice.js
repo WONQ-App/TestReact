@@ -124,6 +124,20 @@ export const newDate = createAsyncThunk(
 	}
 );
 
+export const newSales = createAsyncThunk(
+	'scrumboardApp/board/newSales',
+	async ({ boardId, cardId, title, type, day, price }, { dispatch, getState }) => {
+		const response = await axios.post('/api/scrumboard-app/sales/new', {
+			boardId,
+			cardId,
+			data: ListModel({ cardId: cardId, title: title, type: type, day: day, price: price})
+		});
+		const data = await response.data;
+		console.log(data,'78787878787jo')
+		return data;
+	}
+);
+
 export const newList = createAsyncThunk(
 	'scrumboardApp/board/newList',
 	async ({ boardId, listTitle ,boardColor}, { dispatch, getState }) => {
@@ -266,6 +280,7 @@ const boardsSlice = createSlice({
 		},
 		[newCard.fulfilled]: (state, action) => action.payload,
 		[newDate.fulfilled]: (state, action) => action.payload,
+		[newSales.fulfilled]: (state, action) => action.payload,
 		[renameList.fulfilled]: (state, action) => {
 			const { listId, listTitle, boardColor } = action.payload;
 			state.lists = state.lists.map(list => {
